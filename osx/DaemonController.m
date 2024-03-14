@@ -46,14 +46,14 @@ NSString* TMP_DIR = @"${AppSupDir}/tmp";
 }
 
 - (NSString *) resolveAppSupDir:(NSString *)dir {
-    NSString *appSupPath = [@"${AppSupDir}/Application Support/NZBGet" stringByExpandingTildeInPath];
+	NSString *appSupPath = [@"${AppSupDir}/Application Support/NZBGet" stringByExpandingTildeInPath];
 
 	NSArray* paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    if (paths.count > 0)
-    {
+	if (paths.count > 0)
+	{
 		appSupPath = [paths objectAtIndex:0];
 		appSupPath = [appSupPath stringByAppendingPathComponent:@"NZBGet"];
-    }
+	}
 	
 	dir = [dir stringByReplacingOccurrencesOfString:@"${AppSupDir}"
 										 withString:appSupPath
@@ -147,6 +147,12 @@ NSString* TMP_DIR = @"${AppSupDir}/tmp";
 			@"-o", @"SecureControl=no",
 			nil
 		]];
+	}
+
+	// Check if an .nzb file path is provided as a command-line argument
+	if ([[NSProcessInfo processInfo].arguments count] > 1) {
+		NSString *nzbFilePath = [NSProcessInfo processInfo].arguments[1];
+		[arguments addObject:nzbFilePath];
 	}
 
 	NSTask* task = [[NSTask alloc] init];
