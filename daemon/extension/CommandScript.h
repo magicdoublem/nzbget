@@ -54,7 +54,7 @@ public:
 private:
 	MessageList m_messages;
 	Mutex m_logMutex;
-	int m_idMessageGen;
+	int64 m_idMessageGen;
 	int m_idScriptGen;
 };
 

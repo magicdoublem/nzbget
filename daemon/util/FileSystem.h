@@ -45,7 +45,7 @@ public:
 	static bool LoadFileIntoBuffer(const char* filename, CharBuffer& buffer, bool addTrailingNull);
 	static bool SaveBufferIntoFile(const char* filename, const char* buffer, int bufLen);
 	static bool AllocateFile(const char* filename, int64 size, bool sparse, CString& errmsg);
-	static bool TruncateFile(const char* filename, int size);
+	static bool TruncateFile(const char* filename, int64 size);
 	static CString MakeValidFilename(const char* filename, bool allowSlashes = false);
 	static bool ReservedChar(char ch);
 	static CString MakeUniqueFilename(const char* destDir, const char* basename);

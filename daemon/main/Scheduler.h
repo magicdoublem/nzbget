@@ -54,7 +54,7 @@ public:
 		friend class Scheduler;
 		static const int STARTUP_TASK = -1;
 	private:
-		int m_id;
+		int64 m_id;
 		int m_hours;
 		int m_minutes;
 		int m_weekDaysBits;

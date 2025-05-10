@@ -27,10 +27,10 @@
 #include "Util.h"
 #include "FileSystem.h"
 
-int FileInfo::m_idGen = 0;
-int FileInfo::m_idMax = 0;
-int NzbInfo::m_idGen = 0;
-int NzbInfo::m_idMax = 0;
+int64 FileInfo::m_idGen = 0;
+int64 FileInfo::m_idMax = 0;
+int64 NzbInfo::m_idGen = 0;
+int64 NzbInfo::m_idMax = 0;
 DownloadQueue* DownloadQueue::g_DownloadQueue = nullptr;
 std::atomic<bool> DownloadQueue::g_Loaded{false};
 
@@ -144,7 +144,7 @@ void ServerStatList::ListOp(ServerStatList* serverStats, EStatOperation statOper
 }
 
 
-void NzbInfo::SetId(int id)
+void NzbInfo::SetId(int64 id)
 {
 	m_id = id;
 	if (m_idMax < m_id)
@@ -166,7 +166,7 @@ void NzbInfo::ResetGenId(bool max)
 	}
 }
 
-int NzbInfo::GenerateId()
+int64 NzbInfo::GenerateId()
 {
 	return ++m_idGen;
 }
@@ -839,7 +839,7 @@ void FileInfo::SetActiveDownloads(int activeDownloads)
 }
 
 
-CompletedFile::CompletedFile(int id, std::string filename, std::string origname, EStatus status,
+CompletedFile::CompletedFile(int64 id, std::string filename, std::string origname, EStatus status,
 	uint32 crc, bool parFile, std::string hash16k, std::string parSetId) 
 	: m_id(id)
 	, m_filename(std::move(filename))
@@ -857,7 +857,7 @@ CompletedFile::CompletedFile(int id, std::string filename, std::string origname,
 }
 
 
-void DupInfo::SetId(int id)
+void DupInfo::SetId(int64 id)
 {
 	m_id = id;
 	if (NzbInfo::m_idMax < m_id)
@@ -879,7 +879,7 @@ HistoryInfo::~HistoryInfo()
 	}
 }
 
-int HistoryInfo::GetId()
+int64 HistoryInfo::GetId()
 {
 	if ((m_kind == hkNzb || m_kind == hkUrl))
 	{

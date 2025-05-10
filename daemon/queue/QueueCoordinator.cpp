@@ -35,7 +35,7 @@
 #include "Deobfuscation.h"
 
 bool QueueCoordinator::CoordinatorDownloadQueue::EditEntry(
-	int ID, EEditAction action, const char* args)
+	int64 ID, EEditAction action, const char* args)
 {
 	return m_owner->m_queueEditor.EditEntry(&m_owner->m_downloadQueue, ID, action, args);
 }

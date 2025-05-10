@@ -37,7 +37,7 @@ public:
 	void SetConnection(std::unique_ptr<Connection>&& connection) { m_connection = std::move(connection); }
 
 private:
-	int m_id;
+	int64 m_id;
 	int m_serverId;
 	std::unique_ptr<Connection> m_connection;
 	const char* m_dataDir;

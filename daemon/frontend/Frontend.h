@@ -67,7 +67,7 @@ protected:
 	void ServerSetDownloadRate(int rate);
 	bool RequestSetDownloadRate(int rate);
 	bool ServerEditQueue(DownloadQueue::EEditAction action, int offset, int entry);
-	bool RequestEditQueue(DownloadQueue::EEditAction action, int offset, int id);
+	bool RequestEditQueue(DownloadQueue::EEditAction action, int offset, int64 id);
 	void Wait(int milliseconds);
 
 private:

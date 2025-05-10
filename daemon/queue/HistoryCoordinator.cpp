@@ -236,7 +236,7 @@ void HistoryCoordinator::PrepareEdit(DownloadQueue* downloadQueue, IdList* idLis
 	// this will later (on second step) avoid moving other items to download queue, if they are marked bad too.
 	if (action == DownloadQueue::eaHistoryMarkBad)
 	{
-		for (int id : *idList)
+		for (int64 id : *idList)
 		{
 			HistoryInfo* historyInfo = downloadQueue->GetHistory()->Find(id);
 			if (historyInfo && historyInfo->GetKind() == HistoryInfo::hkNzb)
@@ -253,7 +253,7 @@ bool HistoryCoordinator::EditList(DownloadQueue* downloadQueue, IdList* idList,
 	bool ok = false;
 	PrepareEdit(downloadQueue, idList, action);
 
-	for (int id : *idList)
+	for (int64 id : *idList)
 	{
 		for (HistoryList::iterator itHistory = downloadQueue->GetHistory()->begin(); itHistory != downloadQueue->GetHistory()->end(); itHistory++)
 		{

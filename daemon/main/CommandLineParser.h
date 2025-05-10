@@ -60,7 +60,7 @@ public:
 		mmRegEx
 	};
 
-	typedef std::vector<int> IdList;
+	typedef std::vector<int64> IdList;
 	typedef std::vector<CString> NameList;
 
 	CommandLineParser(int argc, const char* argv[]);

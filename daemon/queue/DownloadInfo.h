@@ -208,7 +208,7 @@ public:
 	ServerStatList* GetServerStats() { return &m_serverStats; }
 
 private:
-	int m_id;
+	int64 m_id;
 	NzbInfo* m_nzbInfo = nullptr;
 	ArticleList m_articles;
 	Groups m_groups;
@@ -246,8 +246,8 @@ private:
 	CString m_parSetId;
 	bool m_flushLocked = false;
 
-	static int m_idGen;
-	static int m_idMax;
+	static int64 m_idGen;
+	static int64 m_idMax;
 
 	friend class CompletedFile;
 };
@@ -266,9 +266,9 @@ public:
 		cfFailure
 	};
 
-	CompletedFile(int id, std::string filename, std::string oldname, EStatus status,
+	CompletedFile(int64 id, std::string filename, std::string oldname, EStatus status,
 		uint32 crc, bool parFile, std::string hash16k, std::string parSetId);
-	int GetId() { return m_id; }
+	int64 GetId() { return m_id; }
 	void SetFilename(std::string filename) { m_filename = std::move(filename); }
 	const char* GetFilename() { return m_filename.c_str(); }
 	void SetOrigname(std::string origname) { m_origname = std::move(origname); }
@@ -282,7 +282,7 @@ public:
 	void SetParSetId(std::string parSetId) { m_parSetId = std::move(parSetId); }
 
 private:
-	int m_id;
+	int64 m_id;
 	EStatus m_status;
 	uint32 m_crc;
 	bool m_parFile;
@@ -471,10 +471,10 @@ public:
 		dhRedownloadAuto
 	};
 
-	int GetId() { return m_id; }
-	void SetId(int id);
+	int64 GetId() { return m_id; }
+	void SetId(int64 id);
 	static void ResetGenId(bool max);
-	static int GenerateId();
+	static int64 GenerateId();
 	EKind GetKind() { return m_kind; }
 	void SetKind(EKind kind) { m_kind = kind; }
 	const char* GetUrl() { return m_url; }
@@ -672,7 +672,7 @@ public:
 	static const int FORCE_PRIORITY = 900;
 
 private:
-	int m_id = ++m_idGen;
+	int64 m_id = ++m_idGen;
 	EKind m_kind = nkNzb;
 	CString m_url = "";
 	CString m_filename = "";
@@ -744,7 +744,7 @@ private:
 	ServerStatList m_currentServerStats;
 	Mutex m_logMutex;
 	MessageList m_messages;
-	int m_idMessageGen = 0;
+	int64 m_idMessageGen = 0;
 	std::unique_ptr<PostInfo> m_postInfo;
 	int64 m_downloadedSize = 0;
 	time_t m_downloadStartTime = 0;
@@ -769,8 +769,8 @@ private:
 	bool m_skipScriptProcessing = false;
 	bool m_scipDiskWrite = false;
 
-	static int m_idGen;
-	static int m_idMax;
+	static int64 m_idGen;
+	static int64 m_idMax;
 
 	void ClearMessages();
 
@@ -865,7 +865,7 @@ private:
 	ExtractedArchives m_extractedArchives;
 };
 
-typedef std::vector<int> IdList;
+typedef std::vector<int64> IdList;
 
 typedef std::vector<CString> NameList;
 
@@ -883,8 +883,8 @@ public:
 		dsGood
 	};
 
-	int GetId() { return m_id; }
-	void SetId(int id);
+	int64 GetId() { return m_id; }
+	void SetId(int64 id);
 	const char* GetName() { return m_name; }
 	void SetName(const char* name) { m_name = name; }
 	const char* GetDupeKey() { return m_dupeKey; }
@@ -903,7 +903,7 @@ public:
 	void SetStatus(EStatus Status) { m_status = Status; }
 
 private:
-	int m_id = 0;
+	int64 m_id = 0;
 	CString m_name;
 	CString m_dupeKey;
 	int m_dupeScore = 0;
@@ -930,7 +930,7 @@ public:
 	HistoryInfo(std::unique_ptr<DupInfo> dupInfo) : m_info(dupInfo.release()), m_kind(hkDup) {}
 	~HistoryInfo();
 	EKind GetKind() { return m_kind; }
-	int GetId();
+	int64 GetId();
 	NzbInfo* GetNzbInfo() { return (NzbInfo*)m_info; }
 	DupInfo* GetDupInfo() { return (DupInfo*)m_info; }
 	void DiscardNzbInfo() { m_info = nullptr; }
@@ -1042,7 +1042,7 @@ public:
 	static GuardedDownloadQueue Guard() { return GuardedDownloadQueue(g_DownloadQueue, &g_DownloadQueue->m_lockMutex); }
 	NzbList* GetQueue() { return &m_queue; }
 	HistoryList* GetHistory() { return &m_history; }
-	virtual bool EditEntry(int ID, EEditAction action, const char* args) = 0;
+	virtual bool EditEntry(int64 ID, EEditAction action, const char* args) = 0;
 	virtual bool EditList(IdList* idList, NameList* nameList, EMatchMode matchMode, EEditAction action, const char* args) = 0;
 	virtual void HistoryChanged() = 0;
 	virtual void Save() = 0;

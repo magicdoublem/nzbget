@@ -477,7 +477,7 @@ bool DiskState::LoadQueue(NzbList* queue, Servers* servers, StateDiskFile& infil
 	// load nzb-infos
 	int size;
 	if (infile.ScanLine("%i", &size) != 1) goto error;
-	for (int i = 0; i < size; i++)
+	for (int64 i = 0; i < size; i++)
 	{
 		std::unique_ptr<NzbInfo> nzbInfo = std::make_unique<NzbInfo>();
 		if (!LoadNzbInfo(nzbInfo.get(), servers, infile, formatVersion)) goto error;
@@ -513,9 +513,9 @@ bool DiskState::LoadProgress(NzbList* queue, Servers* servers, StateDiskFile& in
 	// load nzb-infos
 	int size;
 	if (infile.ScanLine("%i", &size) != 1) goto error;
-	for (int i = 0; i < size; i++)
+	for (int64 i = 0; i < size; i++)
 	{
-		int id;
+		int64 id;
 		if (infile.ScanLine("%i", &id) != 1) goto error;
 
 		NzbInfo* nzbInfo = queue->Find(id);
@@ -645,7 +645,7 @@ bool DiskState::LoadNzbInfo(NzbInfo* nzbInfo, Servers* servers, StateDiskFile& i
 	int desiredServerId = 0;
 	int numItems = 0;
 
-	int id;
+	int64 id;
 	if (infile.ScanLine("%i", &id) != 1) goto error;
 	nzbInfo->SetId(id);
 

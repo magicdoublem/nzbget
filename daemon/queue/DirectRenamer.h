@@ -46,15 +46,15 @@ public:
 	class ParFile
 	{
 	public:
-		ParFile(int id, const char* filename, const char* setId, bool completed) :
+		ParFile(int64 id, const char* filename, const char* setId, bool completed) :
 			m_id(id), m_filename(filename), m_setId(setId), m_completed(completed) {}
-		int GetId() { return m_id; }
+		int64 GetId() { return m_id; }
 		const char* GetFilename() { return m_filename; }
 		const char* GetSetId() { return m_setId; }
 		bool GetCompleted() { return m_completed; }
 
 	private:
-		int m_id;
+		int64 m_id;
 		CString m_filename;
 		CString m_setId;
 		bool m_completed = false;

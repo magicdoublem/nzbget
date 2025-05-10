@@ -64,7 +64,7 @@ private:
 	{
 	public:
 		CoordinatorDownloadQueue(QueueCoordinator* owner) : m_owner(owner) {}
-		virtual bool EditEntry(int ID, EEditAction action, const char* args);
+		virtual bool EditEntry(int64 ID, EEditAction action, const char* args);
 		virtual bool EditList(IdList* idList, NameList* nameList, EMatchMode matchMode,
 			EEditAction action, const char* args);
 		virtual void HistoryChanged() { m_historyChanged = true; }

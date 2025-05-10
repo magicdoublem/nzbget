@@ -198,7 +198,7 @@ bool GroupSorter::operator()(const std::unique_ptr<NzbInfo>& refNzbInfo1, const 
 }
 
 
-FileInfo* QueueEditor::FindFileInfo(int id)
+FileInfo* QueueEditor::FindFileInfo(int64 id)
 {
 	for (NzbInfo* nzbInfo : m_downloadQueue->GetQueue())
 	{
@@ -291,7 +291,7 @@ void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
 	}
 }
 
-bool QueueEditor::EditEntry(DownloadQueue* downloadQueue, int ID, DownloadQueue::EEditAction action, const char* args)
+bool QueueEditor::EditEntry(DownloadQueue* downloadQueue, int64 ID, DownloadQueue::EEditAction action, const char* args)
 {
 	m_downloadQueue = downloadQueue;
 	IdList cIdList;
@@ -587,7 +587,7 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 		{
 			for (FileInfo* fileInfo : nzbInfo->GetFileList())
 			{
-				int ID = fileInfo->GetId();
+				int64 ID = fileInfo->GetId();
 				if (ID > maxId)
 				{
 					maxId = ID;
@@ -600,7 +600,7 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 		}
 
 		//add IDs to list in order they were transmitted in command
-		for (int id : *idList)
+		for (int64 id : *idList)
 		{
 			if (minId <= id && id <= maxId)
 			{
@@ -619,7 +619,7 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 		int minId = MAX_ID;
 		for (NzbInfo* nzbInfo : m_downloadQueue->GetQueue())
 		{
-			int ID = nzbInfo->GetId();
+			int64 ID = nzbInfo->GetId();
 			if (ID > maxId)
 			{
 				maxId = ID;
@@ -631,7 +631,7 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 		}
 
 		//add IDs to list in order they were transmitted in command
-		for (int id : *idList)
+		for (int64 id : *idList)
 		{
 			if (minId <= id && id <= maxId)
 			{
@@ -717,7 +717,7 @@ bool QueueEditor::EditGroup(NzbInfo* nzbInfo, DownloadQueue::EEditAction action,
 {
 	ItemList itemList;
 	bool allPaused = true;
-	int id = nzbInfo->GetId();
+	int64 id = nzbInfo->GetId();
 
 	// collecting files belonging to group
 	for (FileInfo* fileInfo : nzbInfo->GetFileList())
@@ -1086,7 +1086,7 @@ void QueueEditor::AlignGroups(ItemList* itemList)
 	}
 }
 
-bool QueueEditor::ItemListContainsItem(ItemList* itemList, int id)
+bool QueueEditor::ItemListContainsItem(ItemList* itemList, int64 id)
 {
 	return std::find_if(itemList->begin(), itemList->end(),
 		[id](const EditItem& item)
@@ -1147,7 +1147,7 @@ bool QueueEditor::MoveGroupsTo(ItemList* itemList, IdList* idList, bool before, 
 		int step = 0;
 		for (NzbInfo* nzbInfo : m_downloadQueue->GetQueue())
 		{
-			int id = nzbInfo->GetId();
+			int64 id = nzbInfo->GetId();
 			if (id == targetId || id == moveId)
 			{
 				if (!progress)

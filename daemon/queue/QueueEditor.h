@@ -26,7 +26,7 @@
 class QueueEditor
 {
 public:
-	bool EditEntry(DownloadQueue* downloadQueue, int ID, DownloadQueue::EEditAction action, const char* args);
+	bool EditEntry(DownloadQueue* downloadQueue, int64 ID, DownloadQueue::EEditAction action, const char* args);
 	bool EditList(DownloadQueue* downloadQueue, IdList* idList, NameList* nameList, DownloadQueue::EMatchMode matchMode, DownloadQueue::EEditAction action, const char* args);
 
 private:
@@ -45,7 +45,7 @@ private:
 
 	DownloadQueue* m_downloadQueue;
 
-	FileInfo* FindFileInfo(int id);
+	FileInfo* FindFileInfo(int64 id);
 	bool InternEditList(ItemList* itemList, IdList* idList, DownloadQueue::EEditAction action, const char* args);
 	void PrepareList(ItemList* itemList, IdList* idList, DownloadQueue::EEditAction action, int offset);
 	bool BuildIdListFromNameList(IdList* idList, NameList* nameList, DownloadQueue::EMatchMode matchMode, DownloadQueue::EEditAction action);
@@ -69,7 +69,7 @@ private:
 	void MoveEntry(FileInfo* fileInfo, int offset);
 	void MoveGroup(NzbInfo* nzbInfo, int offset);
 	void SortGroupFiles(NzbInfo* nzbInfo);
-	bool ItemListContainsItem(ItemList* itemList, int id);
+	bool ItemListContainsItem(ItemList* itemList, int64 id);
 
 	friend class GroupSorter;
 };

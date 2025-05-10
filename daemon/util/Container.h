@@ -97,7 +97,7 @@ public:
 			});
 	}
 
-	T* Find(int id)
+	T* Find(int64 id)
 	{
 		for (std::unique_ptr<T>& uptr : *this)
 		{

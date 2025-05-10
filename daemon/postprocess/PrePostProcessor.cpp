@@ -966,7 +966,7 @@ bool PrePostProcessor::PostQueueDelete(DownloadQueue* downloadQueue, IdList* idL
 {
 	bool ok = false;
 
-	for (int id : *idList)
+	for (int64 id : *idList)
 	{
 		for (NzbInfo* nzbInfo: downloadQueue->GetQueue())
 		{

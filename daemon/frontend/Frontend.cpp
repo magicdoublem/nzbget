@@ -316,7 +316,7 @@ bool Frontend::RequestSetDownloadRate(int rate)
 	return client.RequestServerSetDownloadRate(rate);
 }
 
-bool Frontend::RequestEditQueue(DownloadQueue::EEditAction action, int offset, int id)
+bool Frontend::RequestEditQueue(DownloadQueue::EEditAction action, int offset, int64 id)
 {
 	RemoteClient client;
 	client.SetVerbose(false);

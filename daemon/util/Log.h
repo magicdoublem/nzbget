@@ -51,15 +51,15 @@ public:
 		mkDetail
 	};
 
-	Message(uint32 id, EKind kind, time_t time, const char* text) :
+	Message(int64 id, EKind kind, time_t time, const char* text) :
 		m_id(id), m_kind(kind), m_time(time), m_text(text) {}
-	uint32 GetId() { return m_id; }
+	int64 GetId() { return m_id; }
 	EKind GetKind() { return m_kind; }
 	time_t GetTime() { return m_time; }
 	const char* GetText() { return m_text; }
 
 private:
-	uint32 m_id;
+	int64 m_id;
 	EKind m_kind;
 	time_t m_time;
 	CString m_text;

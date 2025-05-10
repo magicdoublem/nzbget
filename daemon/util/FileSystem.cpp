@@ -380,7 +380,7 @@ bool FileSystem::AllocateFile(const char* filename, int64 size, [[maybe_unused]]
 	return ok;
 }
 
-bool FileSystem::TruncateFile(const char* filename, int size)
+bool FileSystem::TruncateFile(const char* filename, int64 size)
 {
 #ifdef WIN32
 	FILE* file = _wfopen(UtfPathToWidePath(filename), WString(FOPEN_RBP));

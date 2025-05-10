@@ -108,17 +108,17 @@ protected:
 	class DupeSource
 	{
 	public:
-		DupeSource(int id, const char* directory) 
+		DupeSource(int64 id, const char* directory) 
 			: m_id(id)
 			, m_directory(directory ? directory : "") 
 		{}
-		int GetId() { return m_id; }
+		int64 GetId() { return m_id; }
 		const char* GetDirectory() { return m_directory.c_str(); }
 		int GetUsedBlocks() { return m_usedBlocks; }
 		void SetUsedBlocks(int usedBlocks) { m_usedBlocks = usedBlocks; }
 
 	private:
-		int m_id;
+		int64 m_id;
 		std::string m_directory;
 		int m_usedBlocks = 0;
 	};

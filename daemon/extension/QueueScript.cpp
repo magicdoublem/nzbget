@@ -54,7 +54,7 @@ private:
 	CString m_category;
 	CString m_destDir;
 	CString m_queuedFilename;
-	int m_id;
+	int64 m_id;
 	int m_priority;
 	CString m_dupeKey;
 	EDupeMode m_dupeMode;
@@ -391,7 +391,7 @@ bool QueueScriptCoordinator::UsableScript(std::shared_ptr<const Extension::Scrip
 	return false;
 }
 
-NzbInfo* QueueScriptCoordinator::FindNzbInfo(DownloadQueue* downloadQueue, int nzbId)
+NzbInfo* QueueScriptCoordinator::FindNzbInfo(DownloadQueue* downloadQueue, int64 nzbId)
 {
 	NzbInfo* nzbInfo = downloadQueue->GetQueue()->Find(nzbId);
 	if (nzbInfo)
@@ -463,7 +463,7 @@ void QueueScriptCoordinator::CheckQueue()
 	}
 }
 
-bool QueueScriptCoordinator::HasJob(int nzbId, bool* active)
+bool QueueScriptCoordinator::HasJob(int64 nzbId, bool* active)
 {
 	Guard guard(m_queueMutex);
 
@@ -487,11 +487,11 @@ bool QueueScriptCoordinator::HasJob(int nzbId, bool* active)
 	return working;
 }
 
-int QueueScriptCoordinator::GetQueueSize()
+int64 QueueScriptCoordinator::GetQueueSize()
 {
 	Guard guard(m_queueMutex);
 
-	int queuedCount = m_queue.size();
+	int64 queuedCount = m_queue.size();
 	if (m_curItem)
 	{
 		queuedCount++;
