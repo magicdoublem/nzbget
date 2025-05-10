@@ -30,7 +30,7 @@
 #include "Util.h"
 #include "FileSystem.h"
 
-int Scanner::m_idGen = 0;
+int64 Scanner::m_idGen = 0;
 
 Scanner::QueueData::QueueData(const char* filename, const char* nzbName, const char* category,
 	int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,

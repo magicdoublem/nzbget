@@ -55,7 +55,7 @@ private:
 	MessageList m_messages;
 	Mutex m_logMutex;
 	int64 m_idMessageGen;
-	int m_idScriptGen;
+	int64 m_idScriptGen;
 };
 
 extern CommandScriptLog* g_CommandScriptLog;

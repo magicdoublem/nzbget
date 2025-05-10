@@ -112,7 +112,7 @@ protected:
 	void AppendFmtResponse(const char* format, ...);
 	void AppendCondResponse(const char* part, bool cond);
 	bool IsJson();
-	bool NextParamAsInt(int* value);
+	bool NextParamAsInt(int64* value);
 	bool NextParamAsBool(bool* value);
 	bool NextParamAsStr(char** valueBuf);
 	char* XmlNextValue(char* xml, const char* tag, int* valueLength);

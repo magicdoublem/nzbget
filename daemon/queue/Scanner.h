@@ -113,7 +113,7 @@ private:
 	std::mutex m_scanMutex;
 	std::atomic<bool> m_requestedNzbDirScan{false};
 	std::atomic<bool> m_scanning{false};
-	static int m_idGen;
+	static int64 m_idGen;
 	int m_nzbDirInterval = 0;
 	int m_pass = 0;
 	bool m_scanScript = false;

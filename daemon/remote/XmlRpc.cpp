@@ -138,8 +138,8 @@ public:
 	virtual void Execute();
 
 protected:
-	int m_idFrom;
-	int m_nrEntries;
+	int64 m_idFrom;
+	int64 m_nrEntries;
 	virtual GuardedMessageList GuardMessages();
 };
 
@@ -331,7 +331,7 @@ protected:
 	virtual void Execute();
 	virtual GuardedMessageList GuardMessages();
 private:
-	int m_nzbId;
+	int64 m_nzbId;
 	NzbInfo* m_nzbInfo;
 	MessageList m_messages;
 	std::unique_ptr<GuardedDownloadQueue> m_downloadQueue;
@@ -1034,7 +1034,7 @@ char* XmlCommand::XmlNextValue(char* xml, const char* tag, int* valueLength)
 	return nullptr;
 }
 
-bool XmlCommand::NextParamAsInt(int* value)
+bool XmlCommand::NextParamAsInt(int64* value)
 {
 	if (m_httpMethod == XmlRpcProcessor::hmGet)
 	{
@@ -1280,7 +1280,7 @@ void PauseUnpauseXmlCommand::Execute()
 // bool scheduleresume(int Seconds)
 void ScheduleResumeXmlCommand::Execute()
 {
-	int seconds = 0;
+	int64 seconds = 0;
 	if (!NextParamAsInt(&seconds) || seconds < 0)
 	{
 		BuildErrorResponse(2, "Invalid parameter");
@@ -1324,7 +1324,7 @@ void DumpDebugXmlCommand::Execute()
 
 void SetDownloadRateXmlCommand::Execute()
 {
-	int rate = 0;
+	int64 rate = 0;
 	if (!NextParamAsInt(&rate) || rate < 0)
 	{
 		BuildErrorResponse(2, "Invalid parameter");
@@ -1717,8 +1717,8 @@ GuardedMessageList LogXmlCommand::GuardMessages()
 // For backward compatibility with 0.8 parameter "NZBID" is optional
 void ListFilesXmlCommand::Execute()
 {
-	int idStart = 0;
-	int idEnd = 0;
+	int64 idStart = 0;
+	int64 idEnd = 0;
 	if (NextParamAsInt(&idStart) && (!NextParamAsInt(&idEnd) || idEnd < idStart))
 	{
 		BuildErrorResponse(2, "Invalid parameter");
@@ -1726,7 +1726,7 @@ void ListFilesXmlCommand::Execute()
 	}
 
 	// For backward compatibility with 0.8 parameter "NZBID" is optional (error checking omitted)
-	int nzbId = 0;
+	int64 nzbId = 0;
 	NextParamAsInt(&nzbId);
 
 	if (nzbId > 0 && (idStart != 0 || idEnd != 0))
@@ -2154,7 +2154,7 @@ void NzbInfoXmlCommand::AppendPostInfoFields(PostInfo* postInfo, int logEntries,
 // struct[] listgroups(int NumberOfLogEntries)
 void ListGroupsXmlCommand::Execute()
 {
-	int nrEntries = 0;
+	int64 nrEntries = 0;
 	NextParamAsInt(&nrEntries);
 
 	AppendResponse(IsJson() ? "[\n" : "<array><data>\n");
@@ -2361,7 +2361,7 @@ void EditQueueXmlCommand::Execute()
 		return;
 	}
 
-	int offset = 0;
+	int64 offset = 0;
 	bool hasOffset = NextParamAsInt(&offset);
 
 	char* args;
@@ -2382,7 +2382,7 @@ void EditQueueXmlCommand::Execute()
 	}
 
 	IdList idList;
-	int id = 0;
+	int64 id = 0;
 	while (NextParamAsInt(&id))
 	{
 		idList.push_back(id);
@@ -2431,7 +2431,7 @@ void DownloadXmlCommand::Execute()
 	debug("FileName=%s", nzbFilename);
 
 	// For backward compatibility with 0.8 parameter "Priority" is optional (error checking omitted)
-	int priority = 0;
+	int64 priority = 0;
 	NextParamAsInt(&priority);
 
 	bool addTop;
@@ -2450,7 +2450,7 @@ void DownloadXmlCommand::Execute()
 
 	bool addPaused = false;
 	char* dupeKey = nullptr;
-	int dupeScore = 0;
+	int64 dupeScore = 0;
 	EDupeMode dupeMode = dmScore;
 	if (NextParamAsBool(&addPaused))
 	{
@@ -2552,7 +2552,7 @@ void DownloadXmlCommand::Execute()
 // deprecated
 void PostQueueXmlCommand::Execute()
 {
-	int nrEntries = 0;
+	int64 nrEntries = 0;
 	NextParamAsInt(&nrEntries);
 
 	AppendResponse(IsJson() ? "[\n" : "<array><data>\n");
@@ -3170,18 +3170,18 @@ void ViewFeedXmlCommand::Execute()
 
 	if (m_preview)
 	{
-		int id = 0;
+		int64 id = 0;
 		char* name;
 		char* url;
 		char* filter;
 		bool backlog = true;
 		bool pauseNzb;
 		char* category;
-		int interval = 0;
-		int priority;
+		int64 interval = 0;
+		int64 priority;
 		char* feedFilter = nullptr;
 		char* cacheId;
-		int cacheTimeSec;
+		int64 cacheTimeSec;
 
 		// if the first parameter is int then it's the v16 signature
 		bool v16 = NextParamAsInt(&id);
@@ -3211,7 +3211,7 @@ void ViewFeedXmlCommand::Execute()
 	}
 	else
 	{
-		int id = 0;
+		int64 id = 0;
 		if (!NextParamAsInt(&id) || !NextParamAsBool(&includeNonMatching))
 		{
 			BuildErrorResponse(2, "Invalid parameter");
@@ -3304,7 +3304,7 @@ void ViewFeedXmlCommand::Execute()
 // bool fetchfeed(int ID)
 void FetchFeedXmlCommand::Execute()
 {
-	int id;
+	int64 id;
 	if (!NextParamAsInt(&id))
 	{
 		BuildErrorResponse(2, "Invalid parameter (ID)");
@@ -3322,7 +3322,7 @@ void EditServerXmlCommand::Execute()
 	bool ok = false;
 	int first = true;
 
-	int id;
+	int64 id;
 	while (NextParamAsInt(&id))
 	{
 		first = false;
@@ -3665,7 +3665,7 @@ void ServerVolumesXmlCommand::Execute()
 // bool resetservervolume(int serverid, string counter);
 void ResetServerVolumeXmlCommand::Execute()
 {
-	int serverId;
+	int64 serverId;
 	char* counter;
 	if (!NextParamAsInt(&serverId) || !NextParamAsStr(&counter))
 	{
@@ -3750,13 +3750,13 @@ void TestServerXmlCommand::Execute()
 	const char* JSON_RESPONSE_STR_BODY = "\"%s\"";
 
 	char* host;
-	int port;
+	int64 port;
 	char* username;
 	char* password;
 	bool encryption;
 	char* cipher;
-	int timeout;
-	int certVerifLevel;
+	int64 timeout;
+	int64 certVerifLevel;
 
 	if (!NextParamAsStr(&host) || !NextParamAsInt(&port) || !NextParamAsStr(&username) ||
 		!NextParamAsStr(&password) || !NextParamAsBool(&encryption) ||
@@ -3815,7 +3815,7 @@ void TestServerSpeedXmlCommand::Execute()
 		return;
 	}
 
-	int serverId;
+	int64 serverId;
 	if (!NextParamAsInt(&serverId))
 	{
 		BuildErrorResponse(2, "Invalid parameter: Server ID");
@@ -3844,9 +3844,9 @@ void TestServerSpeedXmlCommand::Execute()
 void TestDiskSpeedXmlCommand::Execute()
 {
 	char* dirPath;
-	int writeBufferKiB;
-	int maxFileSizeGiB;
-	int timeoutSec;
+	int64 writeBufferKiB;
+	int64 maxFileSizeGiB;
+	int64 timeoutSec;
 
 	if (!NextParamAsStr(&dirPath))
 	{

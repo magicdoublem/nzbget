@@ -69,7 +69,7 @@ public:
 	void SetBacklog(bool backlog) { m_backlog = backlog; }
 
 private:
-	int m_id;
+	int64 m_id;
 	CString m_name;
 	CString m_url;
 	bool m_backlog;
