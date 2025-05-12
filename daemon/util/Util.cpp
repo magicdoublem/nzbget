@@ -888,14 +888,14 @@ void Util::Sleep(int ms)
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-uint32 WebUtil::DecodeBase64(char* inputBuffer, int inputBufferLength, char* outputBuffer)
+int64 WebUtil::DecodeBase64(char* inputBuffer, int64 inputBufferLength, char* outputBuffer)
 {
-	uint32 InputBufferIndex  = 0;
-	uint32 OutputBufferIndex = 0;
-	uint32 InputBufferLength = inputBufferLength > 0 ? inputBufferLength : strlen(inputBuffer);
+	int64 InputBufferIndex  = 0;
+	int64 OutputBufferIndex = 0;
+	int64 InputBufferLength = inputBufferLength > 0 ? inputBufferLength : strlen(inputBuffer);
 
 	char ByteQuartet [4];
-	int i = 0;
+	int64 i = 0;
 	while (InputBufferIndex < InputBufferLength)
 	{
 		// Ignore all characters except the ones in BASE64_ALPHABET
@@ -1109,7 +1109,7 @@ BreakLoop:
 	*output = '\0';
 }
 
-const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int* valueLength)
+const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int64* valueLength)
 {
 	BString<100> openTag("<%s>", tag);
 	BString<100> closeTag("</%s>", tag);
@@ -1128,21 +1128,21 @@ const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int* valueLeng
 	const char* pend = strstr(pstart, closeTag);
 	if (!pend) return nullptr;
 
-	int tagLen = strlen(openTag);
-	*valueLength = (int)(pend - pstart - tagLen);
+	int64 tagLen = strlen(openTag);
+	*valueLength = (int64)(pend - pstart - tagLen);
 
 	return pstart + tagLen;
 }
 
-bool WebUtil::XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int valueBufSize, const char** tagEnd)
+bool WebUtil::XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int64 valueBufSize, const char** tagEnd)
 {
-	int valueLen = 0;
+	int64 valueLen = 0;
 	const char* value = XmlFindTag(xml, tag, &valueLen);
 	if (!value)
 	{
 		return false;
 	}
-	int len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
+	int64 len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
 	strncpy(valueBuf, value, len);
 	valueBuf[len] = '\0';
 	if (tagEnd)
@@ -1386,7 +1386,7 @@ BreakLoop:
 	*output = '\0';
 }
 
-const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, int* valueLength)
+const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, int64* valueLength)
 {
 	BString<100> openTag("\"%s\"", fieldName);
 
@@ -1398,7 +1398,7 @@ const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, 
 	return JsonNextValue(pstart, valueLength);
 }
 
-const char* WebUtil::JsonNextValue(const char* jsonText, int* valueLength)
+const char* WebUtil::JsonNextValue(const char* jsonText, int64* valueLength)
 {
 	const char* pstart = jsonText;
 
@@ -1432,7 +1432,7 @@ const char* WebUtil::JsonNextValue(const char* jsonText, int* valueLength)
 		ch = *++pend;
 	}
 
-	*valueLength = (int)(pend - pstart);
+	*valueLength = (int64)(pend - pstart);
 	return pstart;
 }
 

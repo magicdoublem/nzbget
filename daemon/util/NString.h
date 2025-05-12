@@ -26,7 +26,7 @@
 BString is a replacement for char-arrays allocated on stack.
 It has no memory overhead, provides memory management and formatting functions.
  */
-template <int size>
+template <int64 size>
 class BString
 {
 public:
@@ -36,19 +36,19 @@ public:
 	BString(const char* str) { Set(str); } // for initialization via assignment
 	BString(BString&& other) noexcept { Set(other.m_data); } // never used but declaration is needed for initialization via assignment
 	BString& operator=(const char* str) { Set(str); return *this; }
-	int Length() const { return (int)strlen(m_data); }
-	int Capacity() const { return size - 1; }
+	int64 Length() const { return (int64)strlen(m_data); }
+	int64 Capacity() const { return size - 1; }
 	bool Empty() const { return !*m_data; }
 	void Clear() { m_data[0] = '\0'; }
 	const char* Str() const { return m_data; }
 	operator char*() const { return const_cast<char*>(m_data); }
 	char* operator*() const { return const_cast<char*>(m_data); }
-	void Set(const char* str, int len = 0);
-	void Append(const char* str, int len = 0);
+	void Set(const char* str, int64 len = 0);
+	void Append(const char* str, int64 len = 0);
 	void AppendFmt(const char* format, ...) PRINTF_SYNTAX(2);
 	void AppendFmtV(const char* format, va_list ap);
-	int Format(const char* format, ...) PRINTF_SYNTAX(2);
-	int FormatV(const char* format, va_list ap);
+	int64 Format(const char* format, ...) PRINTF_SYNTAX(2);
+	int64 FormatV(const char* format, va_list ap);
 
 protected:
 	char m_data[size];
@@ -67,7 +67,7 @@ public:
 		free(m_data);
 		m_data = nullptr;
 	}
-	CString(const char* str, int len = 0) { Set(str, len); }
+	CString(const char* str, int64 len = 0) { Set(str, len); }
 	CString(CString&& other) noexcept
 	{
 		m_data = other.m_data;
@@ -89,24 +89,24 @@ public:
 	operator char*() const { return m_data; }
 	char* operator*() const { return m_data; }
 	const char* Str() const { return m_data ? m_data : ""; }
-	int Length() const { return m_data ? (int)strlen(m_data) : 0; }
+	int64 Length() const { return m_data ? (int64)strlen(m_data) : 0; }
 	bool Empty() const { return !m_data || !*m_data; }
 	void Clear()
 	{
 		free(m_data);
 		m_data = nullptr;
 	}
-	void Reserve(int capacity);
+	void Reserve(int64 capacity);
 	void Bind(char* str);
 	char* Unbind();
-	void Set(const char* str, int len = 0);
-	void Append(const char* str, int len = 0);
+	void Set(const char* str, int64 len = 0);
+	void Append(const char* str, int64 len = 0);
 	void AppendFmt(const char* format, ...) PRINTF_SYNTAX(2);
 	void AppendFmtV(const char* format, va_list ap);
-	int Format(const char* format, ...) PRINTF_SYNTAX(2);
-	int FormatV(const char* format, va_list ap);
-	int Find(const char* str, int pos = 0);
-	void Replace(int pos, int len, const char* str, int strLen = 0);
+	int64 Format(const char* format, ...) PRINTF_SYNTAX(2);
+	int64 FormatV(const char* format, va_list ap);
+	int64 Find(const char* str, int64 pos = 0);
+	void Replace(int64 pos, int64 len, const char* str, int64 strLen = 0);
 	void Replace(const char* from, const char* to);
 	void TrimRight();
 
@@ -151,13 +151,13 @@ public:
 	operator const char*() const { return m_data ? m_data : ""; }
 	explicit operator char*() { return m_data; }
 	const char* operator*() const { return m_data; }
-	int Length() const { return m_length; }
+	int64 Length() const { return m_length; }
 	void SetLength(int length) { m_length = length; }
-	int Capacity() const { return m_capacity; }
+	int64 Capacity() const { return m_capacity; }
 	void Reserve(int capacity, bool exact = false);
 	bool Empty() const { return m_length == 0; }
 	void Clear();
-	void Append(const char* str, int len = 0);
+	void Append(const char* str, int64 len = 0);
 	void AppendFmt(const char* format, ...) PRINTF_SYNTAX(2);
 	void AppendFmtV(const char* format, va_list ap);
 	char* Unbind();

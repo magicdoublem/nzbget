@@ -519,15 +519,15 @@ void XmlRpcProcessor::Dispatch()
 	}
 	else if (m_protocol == rpJsonRpc)
 	{
-		int valueLen = 0;
+		int64 valueLen = 0;
 		if (const char* methodPtr = WebUtil::JsonFindField(m_request, "method", &valueLen))
 		{
-			valueLen = valueLen >= (int)sizeof(methodName) ? (int)sizeof(methodName) - 1 : valueLen;
+			valueLen = valueLen >= (int64)sizeof(methodName) ? (int64)sizeof(methodName) - 1 : valueLen;
 			methodName.Set(methodPtr + 1, valueLen - 2);
 		}
 		if (const char* requestIdPtr = WebUtil::JsonFindField(m_request, "id", &valueLen))
 		{
-			valueLen = valueLen >= (int)sizeof(requestId) ? (int)sizeof(requestId) - 1 : valueLen;
+			valueLen = valueLen >= (int64)sizeof(requestId) ? (int64)sizeof(requestId) - 1 : valueLen;
 			requestId.Set(requestIdPtr, valueLen);
 		}
 	}
@@ -990,7 +990,7 @@ void XmlCommand::BuildBoolResponse(bool ok)
 	AppendResponse(content);
 }
 
-void XmlCommand::BuildIntResponse(int value)
+void XmlCommand::BuildIntResponse(int64 value)
 {
 	const char* XML_RESPONSE_INT_BODY = "<i4>%i</i4>";
 	const char* JSON_RESPONSE_INT_BODY = "%i";
@@ -1019,9 +1019,9 @@ void XmlCommand::PrepareParams()
 	}
 }
 
-char* XmlCommand::XmlNextValue(char* xml, const char* tag, int* valueLength)
+char* XmlCommand::XmlNextValue(char* xml, const char* tag, int64* valueLength)
 {
-	int valueLen;
+	int64 valueLen;
 	const char* value = WebUtil::XmlFindTag(xml, "value", &valueLen);
 	if (value)
 	{
@@ -1053,7 +1053,7 @@ bool XmlCommand::NextParamAsInt(int64* value)
 	}
 	else if (IsJson())
 	{
-		int len = 0;
+		int64 len = 0;
 		char* param = (char*)WebUtil::JsonNextValue(m_requestPtr, &len);
 		if (!param || !strchr("-+0123456789", *param))
 		{
@@ -1065,12 +1065,12 @@ bool XmlCommand::NextParamAsInt(int64* value)
 	}
 	else
 	{
-		int len = 0;
-		int tagLen = 4; //strlen("<i4>");
+		int64 len = 0;
+		int64 tagLen = 4; //strlen("<i4>");
 		char* param = XmlNextValue(m_requestPtr, "i4", &len);
 		if (!param)
 		{
-			param = XmlNextValue(m_requestPtr, "int", &len);
+			param = XmlNextValue(m_requestPtr, "int64", &len);
 			tagLen = 5; //strlen("<int>");
 		}
 		if (!param || !strchr("-+0123456789", *param))
@@ -1115,7 +1115,7 @@ bool XmlCommand::NextParamAsBool(bool* value)
 	}
 	else if (IsJson())
 	{
-		int len = 0;
+		int64 len = 0;
 		char* param = (char*)WebUtil::JsonNextValue(m_requestPtr, &len);
 		if (!param)
 		{
@@ -1140,7 +1140,7 @@ bool XmlCommand::NextParamAsBool(bool* value)
 	}
 	else
 	{
-		int len = 0;
+		int64 len = 0;
 		char* param = XmlNextValue(m_requestPtr, "boolean", &len);
 		if (!param)
 		{
@@ -1179,7 +1179,7 @@ bool XmlCommand::NextParamAsStr(char** value)
 	}
 	else if (IsJson())
 	{
-		int len = 0;
+		int64 len = 0;
 		char* param = (char*)WebUtil::JsonNextValue(m_requestPtr, &len);
 		if (!param || len < 2 || param[0] != '"' || param[len - 1] != '"')
 		{
@@ -1193,7 +1193,7 @@ bool XmlCommand::NextParamAsStr(char** value)
 	}
 	else
 	{
-		int len = 0;
+		int64 len = 0;
 		char* param = XmlNextValue(m_requestPtr, "string", &len);
 		if (!param)
 		{
