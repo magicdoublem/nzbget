@@ -38,8 +38,8 @@ public:
 protected:
 	bool m_summary = false;
 	bool m_fileList = false;
-	int64 m_neededLogEntries = 0;
-	int64 m_neededLogFirstId = 0;
+	uint32 m_neededLogEntries = 0;
+	uint32 m_neededLogFirstId = 0;
 	int m_updateInterval;
 
 	// summary
