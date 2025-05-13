@@ -61,12 +61,12 @@ public:
 	virtual bool Connect();
 	virtual bool Disconnect();
 	bool Bind();
-	bool Send(const char* buffer, int size);
-	bool Recv(char* buffer, int size);
-	int TryRecv(char* buffer, int size);
-	char* ReadLine(char* buffer, int size, int* bytesRead);
-	void ReadBuffer(char** buffer, int *bufLen);
-	int WriteLine(const char* buffer);
+	bool Send(const char* buffer, int64 size);
+	bool Recv(char* buffer, int64 size);
+	int64 TryRecv(char* buffer, int64 size);
+	char* ReadLine(char* buffer, int64 size, int64* bytesRead);
+	void ReadBuffer(char** buffer, int64 *bufLen);
+	int64 WriteLine(const char* buffer);
 	std::unique_ptr<Connection> Accept();
 	void Cancel();
 	const char* GetHost() { return m_host; }
@@ -97,13 +97,13 @@ protected:
 	SOCKET m_socket = INVALID_SOCKET;
 	CString m_cipher;
 	CharBuffer m_readBuf;
-	int m_bufAvail = 0;
+	int64 m_bufAvail = 0;
 	char* m_bufPtr = nullptr;
 	std::atomic<EStatus> m_status{csDisconnected};
 	int m_timeout = 60;
 	bool m_suppressErrors = true;
 	BString<100> m_remoteAddr;
-	int m_totalBytesRead = 0;
+	int64 m_totalBytesRead = 0;
 	bool m_gracefull = false;
 	bool m_forceClose = false;
 #ifndef DISABLE_TLS
