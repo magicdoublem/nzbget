@@ -208,7 +208,7 @@ public:
 class WebUtil
 {
 public:
-	static int64 DecodeBase64(char* inputBuffer, int64 inputBufferLength, char* outputBuffer);
+	static int DecodeBase64(char* inputBuffer, int inputBufferLength, char* outputBuffer);
 
 	/*
 	* Encodes string to be used as content of xml-tag.
@@ -225,12 +225,12 @@ public:
 	* Returns pointer to tag-content and length of content in iValueLength
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
-	static const char* XmlFindTag(const char* xml, const char* tag, int64* valueLength);
+	static const char* XmlFindTag(const char* xml, const char* tag, int32* valueLength);
 
 	/*
 	* Parses tag-content into szValueBuf.
 	*/
-	static bool XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int64 valueBufSize, const char** tagEnd);
+	static bool XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int32 valueBufSize, const char** tagEnd);
 
 	/*
 	* Replaces all tags with spaces effectively providing the text content only.
@@ -259,13 +259,13 @@ public:
 	* Returns pointer to field-content and length of content in iValueLength
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
-	static const char* JsonFindField(const char* jsonText, const char* fieldName, int64* valueLength);
+	static const char* JsonFindField(const char* jsonText, const char* fieldName, int32* valueLength);
 
 	/*
 	* Returns pointer to field-content and length of content in iValueLength
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
-	static const char* JsonNextValue(const char* jsonText, int64* valueLength);
+	static const char* JsonNextValue(const char* jsonText, int32* valueLength);
 
 	/*
 	* Unquote http quoted string.

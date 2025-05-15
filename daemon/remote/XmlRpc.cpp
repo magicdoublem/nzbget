@@ -147,7 +147,7 @@ class NzbInfoXmlCommand: public SafeXmlCommand
 {
 protected:
 	void AppendNzbInfoFields(NzbInfo* nzbInfo);
-	void AppendPostInfoFields(PostInfo* postInfo, int logEntries, bool postQueue);
+	void AppendPostInfoFields(PostInfo* postInfo, int64 logEntries, bool postQueue);
 };
 
 class ListFilesXmlCommand: public SafeXmlCommand
@@ -519,7 +519,7 @@ void XmlRpcProcessor::Dispatch()
 	}
 	else if (m_protocol == rpJsonRpc)
 	{
-		int64 valueLen = 0;
+		int32 valueLen = 0;
 		if (const char* methodPtr = WebUtil::JsonFindField(m_request, "method", &valueLen))
 		{
 			valueLen = valueLen >= (int64)sizeof(methodName) ? (int64)sizeof(methodName) - 1 : valueLen;
@@ -1019,9 +1019,9 @@ void XmlCommand::PrepareParams()
 	}
 }
 
-char* XmlCommand::XmlNextValue(char* xml, const char* tag, int64* valueLength)
+char* XmlCommand::XmlNextValue(char* xml, const char* tag, int32* valueLength)
 {
-	int64 valueLen;
+	int32 valueLen;
 	const char* value = WebUtil::XmlFindTag(xml, "value", &valueLen);
 	if (value)
 	{
@@ -1053,7 +1053,7 @@ bool XmlCommand::NextParamAsInt(int64* value)
 	}
 	else if (IsJson())
 	{
-		int64 len = 0;
+		int32 len = 0;
 		char* param = (char*)WebUtil::JsonNextValue(m_requestPtr, &len);
 		if (!param || !strchr("-+0123456789", *param))
 		{
@@ -1065,8 +1065,8 @@ bool XmlCommand::NextParamAsInt(int64* value)
 	}
 	else
 	{
-		int64 len = 0;
-		int64 tagLen = 4; //strlen("<i4>");
+		int32 len = 0;
+		int tagLen = 4; //strlen("<i4>");
 		char* param = XmlNextValue(m_requestPtr, "i4", &len);
 		if (!param)
 		{
@@ -1082,6 +1082,56 @@ bool XmlCommand::NextParamAsInt(int64* value)
 		return true;
 	}
 }
+
+bool XmlCommand::NextParamAsInt32(int32* value)
+{
+	if (m_httpMethod == XmlRpcProcessor::hmGet)
+	{
+		char* param = strchr(m_requestPtr, '=');
+		if (!param)
+		{
+			return false;
+		}
+		*value = atoi(param + 1);
+		m_requestPtr = param + 1;
+		while (*m_requestPtr && strchr("-+0123456789&", *m_requestPtr))
+		{
+			m_requestPtr++;
+		}
+		return true;
+	}
+	else if (IsJson())
+	{
+		int32 len = 0;
+		char* param = (char*)WebUtil::JsonNextValue(m_requestPtr, &len);
+		if (!param || !strchr("-+0123456789", *param))
+		{
+			return false;
+		}
+		*value = atoi(param);
+		m_requestPtr = param + len + 1;
+		return true;
+	}
+	else
+	{
+		int32 len = 0;
+		int tagLen = 4; //strlen("<i4>");
+		char* param = XmlNextValue(m_requestPtr, "i4", &len);
+		if (!param)
+		{
+			param = XmlNextValue(m_requestPtr, "int32", &len);
+			tagLen = 5; //strlen("<int>");
+		}
+		if (!param || !strchr("-+0123456789", *param))
+		{
+			return false;
+		}
+		*value = atoi(param);
+		m_requestPtr = param + len + tagLen;
+		return true;
+	}
+}
+
 
 bool XmlCommand::NextParamAsBool(bool* value)
 {
@@ -1115,7 +1165,7 @@ bool XmlCommand::NextParamAsBool(bool* value)
 	}
 	else if (IsJson())
 	{
-		int64 len = 0;
+		int32 len = 0;
 		char* param = (char*)WebUtil::JsonNextValue(m_requestPtr, &len);
 		if (!param)
 		{
@@ -1140,7 +1190,7 @@ bool XmlCommand::NextParamAsBool(bool* value)
 	}
 	else
 	{
-		int64 len = 0;
+		int32 len = 0;
 		char* param = XmlNextValue(m_requestPtr, "boolean", &len);
 		if (!param)
 		{
@@ -1179,7 +1229,7 @@ bool XmlCommand::NextParamAsStr(char** value)
 	}
 	else if (IsJson())
 	{
-		int64 len = 0;
+		int32 len = 0;
 		char* param = (char*)WebUtil::JsonNextValue(m_requestPtr, &len);
 		if (!param || len < 2 || param[0] != '"' || param[len - 1] != '"')
 		{
@@ -1193,7 +1243,7 @@ bool XmlCommand::NextParamAsStr(char** value)
 	}
 	else
 	{
-		int64 len = 0;
+		int32 len = 0;
 		char* param = XmlNextValue(m_requestPtr, "string", &len);
 		if (!param)
 		{
@@ -2050,7 +2100,7 @@ void NzbInfoXmlCommand::AppendNzbInfoFields(NzbInfo* nzbInfo)
 	AppendResponse(IsJson() ? JSON_NZB_ITEM_END : XML_NZB_ITEM_END);
 }
 
-void NzbInfoXmlCommand::AppendPostInfoFields(PostInfo* postInfo, int logEntries, bool postQueue)
+void NzbInfoXmlCommand::AppendPostInfoFields(PostInfo* postInfo, int64 logEntries, bool postQueue)
 {
 	const char* XML_GROUPQUEUE_ITEM_START =
 		"<member><name>PostInfoText</name><value><string>%s</string></value></member>\n"
@@ -3750,18 +3800,18 @@ void TestServerXmlCommand::Execute()
 	const char* JSON_RESPONSE_STR_BODY = "\"%s\"";
 
 	char* host;
-	int64 port;
+	int port;
 	char* username;
 	char* password;
 	bool encryption;
 	char* cipher;
-	int64 timeout;
-	int64 certVerifLevel;
+	int timeout;
+	int certVerifLevel;
 
-	if (!NextParamAsStr(&host) || !NextParamAsInt(&port) || !NextParamAsStr(&username) ||
+	if (!NextParamAsStr(&host) || !NextParamAsInt32(&port) || !NextParamAsStr(&username) ||
 		!NextParamAsStr(&password) || !NextParamAsBool(&encryption) ||
-		!NextParamAsStr(&cipher) || !NextParamAsInt(&timeout) ||
-		!NextParamAsInt(&certVerifLevel))
+		!NextParamAsStr(&cipher) || !NextParamAsInt32(&timeout) ||
+		!NextParamAsInt32(&certVerifLevel))
 	{
 		BuildErrorResponse(2, "Invalid parameter");
 		return;
