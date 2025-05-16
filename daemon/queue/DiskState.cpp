@@ -1940,12 +1940,12 @@ bool DiskState::LoadAllFileInfos(DownloadQueue* downloadQueue)
 		useHibernate = infile != nullptr;
 		if (useHibernate)
 		{
-			int fileCount = 0;
+			int64 fileCount = 0;
 			for (NzbInfo* nzbInfo : downloadQueue->GetQueue())
 			{
 				fileCount += nzbInfo->GetFileList()->size();
 			}
-			int size = 0;
+			int64 size = 0;
 			useHibernate = infile->ScanLine("%i", &size) == 1 && size == fileCount;
 		}
 		if (!useHibernate)
@@ -1963,7 +1963,7 @@ bool DiskState::LoadAllFileInfos(DownloadQueue* downloadQueue)
 			bool res = false;
 			if (useHibernate)
 			{
-				int id = 0;
+				int64 id = 0;
 				infile->ScanLine("%i", &id);
 				if (id == fileInfo->GetId())
 				{
@@ -2003,7 +2003,7 @@ bool DiskState::LoadAllFileStates(DownloadQueue* downloadQueue, Servers* servers
 	DirBrowser dir(g_Options->GetQueueDir());
 	while (const char* filename = dir.Next())
 	{
-		int id;
+		int64 id;
 		char suffix;
 		if (sscanf(filename, "%i%c", &id, &suffix) == 2)
 		{
@@ -2500,7 +2500,7 @@ void DiskState::DeleteCacheFlag()
 	FileSystem::DeleteFile(flagFilename);
 }
 
-void DiskState::AppendNzbMessage(int nzbId, Message::EKind kind, const char* text)
+void DiskState::AppendNzbMessage(int64 nzbId, Message::EKind kind, const char* text)
 {
 	BString<1024> logFilename("%s%cn%i.log", g_Options->GetQueueDir(), PATH_SEPARATOR, nzbId);
 
@@ -2537,7 +2537,7 @@ void DiskState::AppendNzbMessage(int nzbId, Message::EKind kind, const char* tex
 	outfile.Close();
 }
 
-void DiskState::LoadNzbMessages(int nzbId, MessageList* messages)
+void DiskState::LoadNzbMessages(int64 nzbId, MessageList* messages)
 {
 	// Important:
 	//   - Other threads may be writing into the log-file at any time;
@@ -2557,7 +2557,7 @@ void DiskState::LoadNzbMessages(int nzbId, MessageList* messages)
 		return;
 	}
 
-	int id = 0;
+	int64 id = 0;
 	char line[1024];
 	while (infile.ReadLine(line, sizeof(line)))
 	{

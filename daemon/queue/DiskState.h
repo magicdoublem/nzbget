@@ -54,8 +54,8 @@ public:
 	void CleanupTempDir(DownloadQueue* downloadQueue);
 	void WriteCacheFlag();
 	void DeleteCacheFlag();
-	void AppendNzbMessage(int nzbId, Message::EKind kind, const char* text);
-	void LoadNzbMessages(int nzbId, MessageList* messages);
+	void AppendNzbMessage(int64 nzbId, Message::EKind kind, const char* text);
+	void LoadNzbMessages(int64 nzbId, MessageList* messages);
 
 private:
 	bool SaveFileInfo(FileInfo* fileInfo, StateDiskFile& outfile, bool articles);
