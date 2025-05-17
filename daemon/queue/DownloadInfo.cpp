@@ -29,8 +29,8 @@
 
 int64 FileInfo::m_idGen = 0;
 int64 FileInfo::m_idMax = 0;
-int64 NzbInfo::m_idGen = 0;
-int64 NzbInfo::m_idMax = 0;
+uint32 NzbInfo::m_idGen = 0;
+uint32 NzbInfo::m_idMax = 0;
 DownloadQueue* DownloadQueue::g_DownloadQueue = nullptr;
 std::atomic<bool> DownloadQueue::g_Loaded{false};
 
@@ -144,7 +144,7 @@ void ServerStatList::ListOp(ServerStatList* serverStats, EStatOperation statOper
 }
 
 
-void NzbInfo::SetId(int64 id)
+void NzbInfo::SetId(uint32 id)
 {
 	m_id = id;
 	if (m_idMax < m_id)
