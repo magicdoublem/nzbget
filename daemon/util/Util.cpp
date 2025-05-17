@@ -893,7 +893,7 @@ uint32 WebUtil::DecodeBase64(char* inputBuffer, int32 inputBufferLength, char* o
 	uint32 InputBufferLength = inputBufferLength > 0 ? inputBufferLength : strlen(inputBuffer);
 
 	char ByteQuartet [4];
-	uint32 i = 0;
+	int32 i = 0;
 	while (InputBufferIndex < InputBufferLength)
 	{
 		// Ignore all characters except the ones in BASE64_ALPHABET
