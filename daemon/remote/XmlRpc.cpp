@@ -990,7 +990,7 @@ void XmlCommand::BuildBoolResponse(bool ok)
 	AppendResponse(content);
 }
 
-void XmlCommand::BuildIntResponse(int64 value)
+void XmlCommand::BuildUInt32Response(uint32 value)
 {
 	const char* XML_RESPONSE_INT_BODY = "<i4>%i</i4>";
 	const char* JSON_RESPONSE_INT_BODY = "%i";
@@ -2347,7 +2347,7 @@ void EditQueueXmlCommand::Execute()
 	debug("EditCommand=%s", editCommand);
 
 	int action = -1;
-	for (int i = 0; const char* name = EditCommandNameMap[i].actionName; i++)
+	for (uint32 i = 0; const char* name = EditCommandNameMap[i].actionName; i++)
 	{
 		if (!strcasecmp(editCommand, name))
 		{
@@ -2520,7 +2520,7 @@ void DownloadXmlCommand::Execute()
 
 		if (v13)
 		{
-			BuildIntResponse(nzbId);
+			BuildUInt32Response(nzbId);
 		}
 		else
 		{
@@ -2541,7 +2541,7 @@ void DownloadXmlCommand::Execute()
 
 		if (v13)
 		{
-			BuildIntResponse(nzbId);
+			BuildUInt32Response(nzbId);
 		}
 		else
 		{

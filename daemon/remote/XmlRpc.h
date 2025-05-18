@@ -107,7 +107,7 @@ protected:
 
 	void BuildErrorResponse(int errCode, const char* errText, ...);
 	void BuildBoolResponse(bool ok);
-	void BuildIntResponse(int64 value);
+	void BuildUInt32Response(uint32 value);
 	void AppendResponse(const char* part);
 	void AppendFmtResponse(const char* format, ...);
 	void AppendCondResponse(const char* part, bool cond);
