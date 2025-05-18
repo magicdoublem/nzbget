@@ -152,7 +152,7 @@ void NntpProcessor::Run()
 	m_connection->WriteLine("200 Welcome (NServ)\r\n");
 
 	CharBuffer buf(1024);
-	int64 bytesRead = 0;
+	uint32 bytesRead = 0;
 	while (CString line = m_connection->ReadLine(buf, 1024, &bytesRead))
 	{
 		line.TrimRight();

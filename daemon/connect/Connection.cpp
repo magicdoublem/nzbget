@@ -353,7 +353,7 @@ bool Connection::Bind()
 	return true;
 }
 
-int64 Connection::WriteLine(const char* buffer)
+uint32 Connection::WriteLine(const char* buffer)
 {
 	//debug("Connection::WriteLine");
 
@@ -362,7 +362,7 @@ int64 Connection::WriteLine(const char* buffer)
 		return -1;
 	}
 
-	int64 res = send(m_socket, buffer, strlen(buffer), 0);
+	uint32 res = send(m_socket, buffer, strlen(buffer), 0);
 	if (res <= 0)
 	{
 		m_status = csBroken;
@@ -371,7 +371,7 @@ int64 Connection::WriteLine(const char* buffer)
 	return res;
 }
 
-bool Connection::Send(const char* buffer, int64 size)
+bool Connection::Send(const char* buffer, uint32 size)
 {
 	debug("Sending data");
 
@@ -380,10 +380,10 @@ bool Connection::Send(const char* buffer, int64 size)
 		return false;
 	}
 
-	int64 bytesSent = 0;
+	uint32 bytesSent = 0;
 	while (bytesSent < size)
 	{
-		int64 res = send(m_socket, buffer + bytesSent, size-bytesSent, 0);
+		uint32 res = send(m_socket, buffer + bytesSent, size-bytesSent, 0);
 		if (res <= 0)
 		{
 			m_status = csBroken;
@@ -395,7 +395,7 @@ bool Connection::Send(const char* buffer, int64 size)
 	return true;
 }
 
-char* Connection::ReadLine(char* buffer, int64 size, int64* bytesReadOut)
+char* Connection::ReadLine(char* buffer, uint32 size, uint32* bytesReadOut)
 {
 	if (m_status != csConnected)
 	{
@@ -404,8 +404,8 @@ char* Connection::ReadLine(char* buffer, int64 size, int64* bytesReadOut)
 
 	char* inpBuffer = buffer;
 	size--; // for trailing '0'
-	int64 bytesRead = 0;
-	int64 bufAvail = m_bufAvail; // local variable is faster
+	uint32 bytesRead = 0;
+	uint32 bufAvail = m_bufAvail; // local variable is faster
 	char* bufPtr = m_bufPtr; // local variable is faster
 	while (size)
 	{
@@ -430,7 +430,7 @@ char* Connection::ReadLine(char* buffer, int64 size, int64* bytesReadOut)
 			m_readBuf[bufAvail] = '\0';
 		}
 
-		int64 len = 0;
+		uint32 len = 0;
 		char* p = (char*)memchr(bufPtr, '\n', bufAvail);
 		if (p)
 		{
@@ -500,13 +500,13 @@ std::unique_ptr<Connection> Connection::Accept()
 	return std::make_unique<Connection>(socket, m_tls);
 }
 
-int64 Connection::TryRecv(char* buffer, int64 size)
+uint32 Connection::TryRecv(char* buffer, uint32 size)
 {
 	//debug("Receiving data");
 
 	memset(buffer, 0, size);
 
-	int64 received = recv(m_socket, buffer, size, 0);
+	uint32 received = recv(m_socket, buffer, size, 0);
 
 	if (received < 0)
 	{
@@ -520,18 +520,18 @@ int64 Connection::TryRecv(char* buffer, int64 size)
 	return received;
 }
 
-bool Connection::Recv(char * buffer, int64 size)
+bool Connection::Recv(char * buffer, uint32 size)
 {
 	//debug("Receiving data (full buffer)");
 
 	memset(buffer, 0, size);
 
 	char* bufPtr = (char*)buffer;
-	int64 NeedBytes = size;
+	uint32 NeedBytes = size;
 
 	if (m_bufAvail > 0)
 	{
-		int64 len = size > m_bufAvail ? m_bufAvail : size;
+		uint32 len = size > m_bufAvail ? m_bufAvail : size;
 		memcpy(bufPtr, m_bufPtr, len);
 		bufPtr += len;
 		m_bufPtr += len;
@@ -542,7 +542,7 @@ bool Connection::Recv(char * buffer, int64 size)
 	// Read from the socket until nothing remains
 	while (NeedBytes > 0)
 	{
-		int64 received = recv(m_socket, bufPtr, NeedBytes, 0);
+		uint32 received = recv(m_socket, bufPtr, NeedBytes, 0);
 		// Did the recv succeed?
 		if (received <= 0)
 		{
@@ -895,7 +895,7 @@ bool Connection::DoDisconnect()
 	return true;
 }
 
-void Connection::ReadBuffer(char** buffer, int64 *bufLen)
+void Connection::ReadBuffer(char** buffer, uint32 *bufLen)
 {
 	*bufLen = m_bufAvail;
 	*buffer = m_bufPtr;

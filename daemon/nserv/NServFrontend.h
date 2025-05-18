@@ -30,8 +30,8 @@ public:
 	NServFrontend();
 
 private:
-	int64 m_neededLogEntries = 0;
-	int64 m_neededLogFirstId = 0;
+	uint32 m_neededLogEntries = 0;
+	uint32 m_neededLogFirstId = 0;
 	bool m_needGoBack = false;
 
 #ifdef WIN32
