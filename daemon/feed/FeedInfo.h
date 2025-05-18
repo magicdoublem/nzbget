@@ -36,10 +36,10 @@ public:
 		fsFailed
 	};
 
-	FeedInfo(int64 id, const char* name, const char* url, bool backlog, int interval,
+	FeedInfo(int id, const char* name, const char* url, bool backlog, int interval,
 		const char* filter, bool pauseNzb, const char* category, int priority,
 		const char* extensions);
-	int64 GetId() { return m_id; }
+	int GetId() { return m_id; }
 	const char* GetName() { return m_name; }
 	const char* GetUrl() { return m_url; }
 	int GetInterval() { return m_interval; }
@@ -69,7 +69,7 @@ public:
 	void SetBacklog(bool backlog) { m_backlog = backlog; }
 
 private:
-	int64 m_id;
+	int m_id;
 	CString m_name;
 	CString m_url;
 	bool m_backlog;
