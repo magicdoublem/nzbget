@@ -227,9 +227,9 @@ void QueueEditor::DeleteEntry(FileInfo* fileInfo)
 	}
 }
 
-void QueueEditor::MoveEntry(FileInfo* fileInfo, int offset)
+void QueueEditor::MoveEntry(FileInfo* fileInfo, int64 offset)
 {
-	int entry = 0;
+	int64 entry = 0;
 	for (FileInfo* fileInfo2 : fileInfo->GetNzbInfo()->GetFileList())
 	{
 		if (fileInfo2 == fileInfo)
@@ -239,8 +239,8 @@ void QueueEditor::MoveEntry(FileInfo* fileInfo, int offset)
 		entry++;
 	}
 
-	int newEntry = entry + offset;
-	int size = (int)fileInfo->GetNzbInfo()->GetFileList()->size();
+	int64 newEntry = entry + offset;
+	int64 size = (int64)fileInfo->GetNzbInfo()->GetFileList()->size();
 
 	if (newEntry < 0)
 	{
@@ -248,7 +248,7 @@ void QueueEditor::MoveEntry(FileInfo* fileInfo, int offset)
 	}
 	if (newEntry > size - 1)
 	{
-		newEntry = (int)size - 1;
+		newEntry = (int64)size - 1;
 	}
 
 	if (newEntry >= 0 && newEntry <= size - 1)
@@ -259,9 +259,9 @@ void QueueEditor::MoveEntry(FileInfo* fileInfo, int offset)
 	}
 }
 
-void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
+void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int64 offset)
 {
-	int entry = 0;
+	int64 entry = 0;
 	for (NzbInfo* nzbInfo2 : m_downloadQueue->GetQueue())
 	{
 		if (nzbInfo2 == nzbInfo)
@@ -271,8 +271,8 @@ void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
 		entry++;
 	}
 
-	int newEntry = entry + offset;
-	int size = (int)m_downloadQueue->GetQueue()->size();
+	int64 newEntry = entry + offset;
+	int64 size = (int64)m_downloadQueue->GetQueue()->size();
 
 	if (newEntry < 0)
 	{
@@ -280,7 +280,7 @@ void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
 	}
 	if (newEntry > size - 1)
 	{
-		newEntry = (int)size - 1;
+		newEntry = (int64)size - 1;
 	}
 
 	if (newEntry >= 0 && newEntry <= size - 1)
@@ -454,7 +454,7 @@ bool QueueEditor::InternEditList(ItemList* itemList,
 }
 
 void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
-	DownloadQueue::EEditAction action, int offset)
+	DownloadQueue::EEditAction action, int64 offset)
 {
 	if (action == DownloadQueue::eaFileMoveTop || action == DownloadQueue::eaGroupMoveTop)
 	{
@@ -472,9 +472,9 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 		// add IDs to list in order they currently have in download queue
 		for (NzbInfo* nzbInfo : m_downloadQueue->GetQueue())
 		{
-			int nrEntries = (int)nzbInfo->GetFileList()->size();
-			int lastDestPos = -1;
-			int start, end, step;
+			int64 nrEntries = (int64)nzbInfo->GetFileList()->size();
+			int64 lastDestPos = -1;
+			int64 start, end, step;
 			if (offset < 0)
 			{
 				start = 0;
@@ -487,14 +487,14 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 				end = -1;
 				step = -1;
 			}
-			for (int index = start; index != end; index += step)
+			for (int64 index = start; index != end; index += step)
 			{
 				std::unique_ptr<FileInfo>& fileInfo = nzbInfo->GetFileList()->at(index);
 				IdList::iterator it2 = std::find(idList->begin(), idList->end(), fileInfo->GetId());
 				if (it2 != idList->end())
 				{
-					int workOffset = offset;
-					int destPos = index + workOffset;
+					int64 workOffset = offset;
+					int64 destPos = index + workOffset;
 					if (lastDestPos == -1)
 					{
 						if (destPos < 0)
@@ -528,9 +528,9 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 		action == DownloadQueue::eaGroupMoveBefore || action == DownloadQueue::eaGroupMoveAfter)
 	{
 		// add IDs to list in order they currently have in download queue
-		int nrEntries = (int)m_downloadQueue->GetQueue()->size();
-		int lastDestPos = -1;
-		int start, end, step;
+		int64 nrEntries = (int64)m_downloadQueue->GetQueue()->size();
+		int64 lastDestPos = -1;
+		int64 start, end, step;
 		if (offset <= 0)
 		{
 			start = 0;
@@ -543,14 +543,14 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 			end = -1;
 			step = -1;
 		}
-		for (int index = start; index != end; index += step)
+		for (int64 index = start; index != end; index += step)
 		{
 			std::unique_ptr<NzbInfo>& nzbInfo = m_downloadQueue->GetQueue()->at(index);
 			IdList::iterator it2 = std::find(idList->begin(), idList->end(), nzbInfo->GetId());
 			if (it2 != idList->end())
 			{
-				int workOffset = offset;
-				int destPos = index + workOffset;
+				int64 workOffset = offset;
+				int64 destPos = index + workOffset;
 				if (lastDestPos == -1)
 				{
 					if (destPos < 0)
@@ -581,8 +581,8 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 	else if (action < DownloadQueue::eaGroupMoveOffset)
 	{
 		// check ID range
-		int maxId = 0;
-		int minId = MAX_ID;
+		int64 maxId = 0;
+		int64 minId = MAX_ID;
 		for (NzbInfo* nzbInfo : m_downloadQueue->GetQueue())
 		{
 			for (FileInfo* fileInfo : nzbInfo->GetFileList())
@@ -615,8 +615,8 @@ void QueueEditor::PrepareList(ItemList* itemList, IdList* idList,
 	else
 	{
 		// check ID range
-		int maxId = 0;
-		int minId = MAX_ID;
+		int64 maxId = 0;
+		int64 minId = MAX_ID;
 		for (NzbInfo* nzbInfo : m_downloadQueue->GetQueue())
 		{
 			int64 ID = nzbInfo->GetId();

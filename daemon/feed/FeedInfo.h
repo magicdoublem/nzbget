@@ -36,10 +36,10 @@ public:
 		fsFailed
 	};
 
-	FeedInfo(int id, const char* name, const char* url, bool backlog, int interval,
+	FeedInfo(int64 id, const char* name, const char* url, bool backlog, int interval,
 		const char* filter, bool pauseNzb, const char* category, int priority,
 		const char* extensions);
-	int GetId() { return m_id; }
+	int64 GetId() { return m_id; }
 	const char* GetName() { return m_name; }
 	const char* GetUrl() { return m_url; }
 	int GetInterval() { return m_interval; }

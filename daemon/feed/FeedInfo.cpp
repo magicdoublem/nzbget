@@ -22,7 +22,7 @@
 #include "FeedInfo.h"
 #include "Util.h"
 
-FeedInfo::FeedInfo(int id, const char* name, const char* url, bool backlog, int interval,
+FeedInfo::FeedInfo(int64 id, const char* name, const char* url, bool backlog, int interval,
 		const char* filter, bool pauseNzb, const char* category, int priority, const char* extensions) :
 	m_backlog(backlog), m_interval(interval), m_pauseNzb(pauseNzb), m_priority(priority)
 {

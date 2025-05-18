@@ -42,9 +42,9 @@ public:
 	void InitOptions();
 	void EnqueueScript(NzbInfo* nzbInfo, EEvent event);
 	void CheckQueue();
-	bool HasJob(int64 nzbId, bool* active);
+	bool HasJob(uint32 nzbId, bool* active);
 	int64 GetQueueSize();
-	static NzbInfo* FindNzbInfo(DownloadQueue* downloadQueue, int64 nzbId);
+	static NzbInfo* FindNzbInfo(DownloadQueue* downloadQueue, uint32 nzbId);
 
 private:
 	class QueueItem

@@ -391,7 +391,7 @@ bool QueueScriptCoordinator::UsableScript(std::shared_ptr<const Extension::Scrip
 	return false;
 }
 
-NzbInfo* QueueScriptCoordinator::FindNzbInfo(DownloadQueue* downloadQueue, int64 nzbId)
+NzbInfo* QueueScriptCoordinator::FindNzbInfo(DownloadQueue* downloadQueue, uint32 nzbId)
 {
 	NzbInfo* nzbInfo = downloadQueue->GetQueue()->Find(nzbId);
 	if (nzbInfo)
@@ -463,7 +463,7 @@ void QueueScriptCoordinator::CheckQueue()
 	}
 }
 
-bool QueueScriptCoordinator::HasJob(int64 nzbId, bool* active)
+bool QueueScriptCoordinator::HasJob(uint32 nzbId, bool* active)
 {
 	Guard guard(m_queueMutex);
 

@@ -886,14 +886,14 @@ void Util::Sleep(int ms)
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-uint32 WebUtil::DecodeBase64(char* inputBuffer, int32 inputBufferLength, char* outputBuffer)
+uint32 WebUtil::DecodeBase64(char* inputBuffer, uint32 inputBufferLength, char* outputBuffer)
 {
 	uint32 InputBufferIndex  = 0;
 	uint32 OutputBufferIndex = 0;
 	uint32 InputBufferLength = inputBufferLength > 0 ? inputBufferLength : strlen(inputBuffer);
 
 	char ByteQuartet [4];
-	int32 i = 0;
+	uint32 i = 0;
 	while (InputBufferIndex < InputBufferLength)
 	{
 		// Ignore all characters except the ones in BASE64_ALPHABET

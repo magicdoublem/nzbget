@@ -35,9 +35,9 @@ private:
 	public:
 		FileInfo* m_fileInfo;
 		NzbInfo* m_nzbInfo;
-		int m_offset;
+		int64 m_offset;
 
-		EditItem(FileInfo* fileInfo, NzbInfo* nzbInfo, int offset) :
+		EditItem(FileInfo* fileInfo, NzbInfo* nzbInfo, int64 offset) :
 			m_fileInfo(fileInfo), m_nzbInfo(nzbInfo), m_offset(offset) {}
 	};
 
@@ -47,7 +47,7 @@ private:
 
 	FileInfo* FindFileInfo(int64 id);
 	bool InternEditList(ItemList* itemList, IdList* idList, DownloadQueue::EEditAction action, const char* args);
-	void PrepareList(ItemList* itemList, IdList* idList, DownloadQueue::EEditAction action, int offset);
+	void PrepareList(ItemList* itemList, IdList* idList, DownloadQueue::EEditAction action, int64 offset);
 	bool BuildIdListFromNameList(IdList* idList, NameList* nameList, DownloadQueue::EMatchMode matchMode, DownloadQueue::EEditAction action);
 	bool EditGroup(NzbInfo* nzbInfo, DownloadQueue::EEditAction action, const char* args);
 	void PauseParsInGroups(ItemList* itemList, bool extraParsOnly);
@@ -66,8 +66,8 @@ private:
 	void SetNzbDupeParam(NzbInfo* nzbInfo, DownloadQueue::EEditAction action, const char* args);
 	void PauseUnpauseEntry(FileInfo* fileInfo, bool pause);
 	void DeleteEntry(FileInfo* fileInfo);
-	void MoveEntry(FileInfo* fileInfo, int offset);
-	void MoveGroup(NzbInfo* nzbInfo, int offset);
+	void MoveEntry(FileInfo* fileInfo, int64 offset);
+	void MoveGroup(NzbInfo* nzbInfo, int64 offset);
 	void SortGroupFiles(NzbInfo* nzbInfo);
 	bool ItemListContainsItem(ItemList* itemList, int64 id);
 
