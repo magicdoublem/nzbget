@@ -471,7 +471,7 @@ private:
 	void InitCommandLineOptions(CmdOptList* commandLineOptions);
 	void CheckOptions();
 	int ParseEnumValue(const char* OptName, int argc, const char* argn[], const int argv[]);
-	uint32 ParseIntValue(const char* OptName, uint32 base);
+	int ParseIntValue(const char* OptName, int base);
 	OptEntry* FindOption(const char* optname);
 	const char* GetOption(const char* optname);
 	void SetOption(const char* optname, const char* value);
