@@ -362,7 +362,7 @@ ArticleDownloader::EStatus ArticleDownloader::Download()
 		}
 
 		char* buffer;
-		uint32 len;
+		int len;
 		m_connection->ReadBuffer(&buffer, &len);
 		if (len == 0)
 		{

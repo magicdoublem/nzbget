@@ -284,7 +284,7 @@ WebDownloader::EStatus WebDownloader::DownloadHeaders()
 	{
 		SetLastUpdateTimeNow();
 
-		uint32 len = 0;
+		int len = 0;
 		char* line = m_connection->ReadLine(lineBuf, lineBuf.Size(), &len);
 
 		if (firstLine)
@@ -352,7 +352,7 @@ WebDownloader::EStatus WebDownloader::DownloadBody()
 		SetLastUpdateTimeNow();
 
 		char* buffer;
-		uint32 len;
+		int len;
 		m_connection->ReadBuffer(&buffer, &len);
 		if (len == 0)
 		{
