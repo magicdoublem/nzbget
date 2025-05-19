@@ -430,7 +430,7 @@ char* Connection::ReadLine(char* buffer, int size, int* bytesReadOut)
 			m_readBuf[bufAvail] = '\0';
 		}
 
-		uint32 len = 0;
+		int len = 0;
 		char* p = (char*)memchr(bufPtr, '\n', bufAvail);
 		if (p)
 		{
