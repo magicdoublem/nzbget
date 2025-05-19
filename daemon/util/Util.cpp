@@ -886,7 +886,7 @@ void Util::Sleep(int ms)
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-uint32 WebUtil::DecodeBase64(char* inputBuffer, uint32 inputBufferLength, char* outputBuffer)
+uint32 WebUtil::DecodeBase64(char* inputBuffer, int32 inputBufferLength, char* outputBuffer)
 {
 	uint32 InputBufferIndex  = 0;
 	uint32 OutputBufferIndex = 0;
@@ -1107,7 +1107,7 @@ BreakLoop:
 	*output = '\0';
 }
 
-const char* WebUtil::XmlFindTag(const char* xml, const char* tag, uint32* valueLength)
+const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int32* valueLength)
 {
 	BString<100> openTag("<%s>", tag);
 	BString<100> closeTag("</%s>", tag);
@@ -1134,13 +1134,13 @@ const char* WebUtil::XmlFindTag(const char* xml, const char* tag, uint32* valueL
 
 bool WebUtil::XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int32 valueBufSize, const char** tagEnd)
 {
-	uint32 valueLen = 0;
+	int32 valueLen = 0;
 	const char* value = XmlFindTag(xml, tag, &valueLen);
 	if (!value)
 	{
 		return false;
 	}
-	uint32 len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
+	int32 len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
 	strncpy(valueBuf, value, len);
 	valueBuf[len] = '\0';
 	if (tagEnd)
@@ -1384,7 +1384,7 @@ BreakLoop:
 	*output = '\0';
 }
 
-const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, uint32* valueLength)
+const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, int32* valueLength)
 {
 	BString<100> openTag("\"%s\"", fieldName);
 
@@ -1396,7 +1396,7 @@ const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, 
 	return JsonNextValue(pstart, valueLength);
 }
 
-const char* WebUtil::JsonNextValue(const char* jsonText, uint32* valueLength)
+const char* WebUtil::JsonNextValue(const char* jsonText, int32* valueLength)
 {
 	const char* pstart = jsonText;
 
@@ -1430,7 +1430,7 @@ const char* WebUtil::JsonNextValue(const char* jsonText, uint32* valueLength)
 		ch = *++pend;
 	}
 
-	*valueLength = (uint32)(pend - pstart);
+	*valueLength = (int32)(pend - pstart);
 	return pstart;
 }
 

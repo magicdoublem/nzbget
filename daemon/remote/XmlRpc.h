@@ -107,15 +107,15 @@ protected:
 
 	void BuildErrorResponse(int errCode, const char* errText, ...);
 	void BuildBoolResponse(bool ok);
-	void BuildUInt32Response(uint32 value);
+	void BuildIntResponse(int32 value);
 	void AppendResponse(const char* part);
 	void AppendFmtResponse(const char* format, ...);
 	void AppendCondResponse(const char* part, bool cond);
 	bool IsJson();
-	bool NextParamAsUInt32(uint32* value);
+	bool NextParamAsInt(int32* value);
 	bool NextParamAsBool(bool* value);
 	bool NextParamAsStr(char** valueBuf);
-	char* XmlNextValue(char* xml, const char* tag, uint32* valueLength);
+	char* XmlNextValue(char* xml, const char* tag, int32* valueLength);
 	const char* BoolToStr(bool value);
 	CString EncodeStr(const char* str);
 	void DecodeStr(char* str);
