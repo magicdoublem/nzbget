@@ -672,7 +672,7 @@ public:
 	static const int FORCE_PRIORITY = 900;
 
 private:
-	uint32 m_id = ++m_idGen;
+	int64 m_id = ++m_idGen;
 	EKind m_kind = nkNzb;
 	CString m_url = "";
 	CString m_filename = "";

@@ -872,7 +872,7 @@ int Options::ParseEnumValue(const char* OptName, int argc, const char * argn[], 
 	return argv[defNum];
 }
 
-uint32 Options::ParseIntValue(const char* OptName, uint32 base)
+int Options::ParseIntValue(const char* OptName, int base)
 {
 	OptEntry* optEntry = FindOption(OptName);
 	if (!optEntry)
