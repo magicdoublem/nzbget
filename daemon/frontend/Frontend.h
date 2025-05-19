@@ -66,8 +66,8 @@ protected:
 	bool RequestPauseUnpause(bool pause);
 	void ServerSetDownloadRate(int rate);
 	bool RequestSetDownloadRate(int rate);
-	bool ServerEditQueue(DownloadQueue::EEditAction action, int offset, int entry);
-	bool RequestEditQueue(DownloadQueue::EEditAction action, int offset, uint32 id);
+	bool ServerEditQueue(DownloadQueue::EEditAction action, int64 offset, int64 entry);
+	bool RequestEditQueue(DownloadQueue::EEditAction action, int64 offset, int64 id);
 	void Wait(int milliseconds);
 
 private:

@@ -471,8 +471,8 @@ public:
 		dhRedownloadAuto
 	};
 
-	uint32 GetId() { return m_id; }
-	void SetId(uint32 id);
+	int64 GetId() { return m_id; }
+	void SetId(int64 id);
 	static void ResetGenId(bool max);
 	static int64 GenerateId();
 	EKind GetKind() { return m_kind; }
@@ -769,8 +769,8 @@ private:
 	bool m_skipScriptProcessing = false;
 	bool m_scipDiskWrite = false;
 
-	static uint32 m_idGen;
-	static uint32 m_idMax;
+	static int64 m_idGen;
+	static int64 m_idMax;
 
 	void ClearMessages();
 
@@ -865,7 +865,7 @@ private:
 	ExtractedArchives m_extractedArchives;
 };
 
-typedef std::vector<uint32> IdList;
+typedef std::vector<int64> IdList;
 
 typedef std::vector<CString> NameList;
 

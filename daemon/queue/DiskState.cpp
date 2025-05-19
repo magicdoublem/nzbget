@@ -475,9 +475,9 @@ bool DiskState::LoadQueue(NzbList* queue, Servers* servers, StateDiskFile& infil
 	debug("Loading nzb list from disk");
 
 	// load nzb-infos
-	int size;
+	uint32 size;
 	if (infile.ScanLine("%i", &size) != 1) goto error;
-	for (int64 i = 0; i < size; i++)
+	for (uint32 i = 0; i < size; i++)
 	{
 		std::unique_ptr<NzbInfo> nzbInfo = std::make_unique<NzbInfo>();
 		if (!LoadNzbInfo(nzbInfo.get(), servers, infile, formatVersion)) goto error;
@@ -511,9 +511,9 @@ bool DiskState::LoadProgress(NzbList* queue, Servers* servers, StateDiskFile& in
 	debug("Loading nzb progress from disk");
 
 	// load nzb-infos
-	int size;
+	uint32 size;
 	if (infile.ScanLine("%i", &size) != 1) goto error;
-	for (int64 i = 0; i < size; i++)
+	for (uint32 i = 0; i < size; i++)
 	{
 		int64 id;
 		if (infile.ScanLine("%i", &id) != 1) goto error;
@@ -1940,12 +1940,12 @@ bool DiskState::LoadAllFileInfos(DownloadQueue* downloadQueue)
 		useHibernate = infile != nullptr;
 		if (useHibernate)
 		{
-			int64 fileCount = 0;
+			uint32 fileCount = 0;
 			for (NzbInfo* nzbInfo : downloadQueue->GetQueue())
 			{
 				fileCount += nzbInfo->GetFileList()->size();
 			}
-			int64 size = 0;
+			uint32 size = 0;
 			useHibernate = infile->ScanLine("%i", &size) == 1 && size == fileCount;
 		}
 		if (!useHibernate)

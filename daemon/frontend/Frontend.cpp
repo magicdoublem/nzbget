@@ -141,7 +141,7 @@ void Frontend::ServerSetDownloadRate(int rate)
 	}
 }
 
-bool Frontend::ServerEditQueue(DownloadQueue::EEditAction action, int offset, int id)
+bool Frontend::ServerEditQueue(DownloadQueue::EEditAction action, int64 offset, int64 id)
 {
 	if (IsRemoteMode())
 	{
@@ -316,7 +316,7 @@ bool Frontend::RequestSetDownloadRate(int rate)
 	return client.RequestServerSetDownloadRate(rate);
 }
 
-bool Frontend::RequestEditQueue(DownloadQueue::EEditAction action, int offset, uint32 id)
+bool Frontend::RequestEditQueue(DownloadQueue::EEditAction action, int64 offset, int64 id)
 {
 	RemoteClient client;
 	client.SetVerbose(false);

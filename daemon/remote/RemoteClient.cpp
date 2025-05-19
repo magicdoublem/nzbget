@@ -761,7 +761,7 @@ bool RemoteClient::RequestServerEditQueue(DownloadQueue::EEditAction action, int
 
 	if (!InitConnection()) return false;
 
-	int idLength = sizeof(int32) * idList->size();
+	int64 idLength = sizeof(int64) * idList->size();
 
 	int nameCount = 0;
 	int nameLength = 0;
@@ -800,9 +800,9 @@ bool RemoteClient::RequestServerEditQueue(DownloadQueue::EEditAction action, int
 		strncpy(trailingData, text, textLen);
 	}
 
-	int32* ids = (int32*)(trailingData + textLen);
+	int64* ids = (int64*)(trailingData + textLen);
 
-	for (int i = 0; i < (int)idList->size(); i++)
+	for (int64 i = 0; i < (int64)idList->size(); i++)
 	{
 		ids[i] = htonl(idList->at(i));
 	}
