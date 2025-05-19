@@ -331,7 +331,7 @@ protected:
 	virtual void Execute();
 	virtual GuardedMessageList GuardMessages();
 private:
-	uint32 m_nzbId;
+	int32 m_nzbId;
 	NzbInfo* m_nzbInfo;
 	MessageList m_messages;
 	std::unique_ptr<GuardedDownloadQueue> m_downloadQueue;
@@ -3867,7 +3867,7 @@ void TestDiskSpeedXmlCommand::Execute()
 		return;
 	}
 
-	if (!NextParamAaInt(&maxFileSizeGiB))
+	if (!NextParamAsInt(&maxFileSizeGiB))
 	{
 		BuildErrorResponse(2, "Invalid argument (Max file size)");
 		return;
