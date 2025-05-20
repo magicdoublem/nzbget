@@ -2583,7 +2583,7 @@ void PostQueueXmlCommand::Execute()
 	const char* postStageName[] = { "QUEUED", "LOADING_PARS", "VERIFYING_SOURCES", "REPAIRING",
 		"VERIFYING_REPAIRED", "RENAMING", "RENAMING", "UNPACKING", "MOVING", "MOVING", "EXECUTING_SCRIPT", "FINISHED" };
 
-	uint32 index = 0;
+	int index = 0;
 
 	GuardedDownloadQueue downloadQueue = DownloadQueue::Guard();
 	for (NzbInfo* nzbInfo : downloadQueue->GetQueue())
