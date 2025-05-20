@@ -120,5 +120,4 @@ protected:
 	CString EncodeStr(const char* str);
 	void DecodeStr(char* str);
 };
-
 #endif
