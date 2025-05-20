@@ -225,12 +225,12 @@ public:
 	* Returns pointer to tag-content and length of content in iValueLength
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
-	static const char* XmlFindTag(const char* xml, const char* tag, int32* valueLength);
+	static const char* XmlFindTag(const char* xml, const char* tag, int* valueLength);
 	
 	/*
 	* Parses tag-content into szValueBuf.
 	*/
-	static bool XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int32 valueBufSize, const char** tagEnd);
+	static bool XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int valueBufSize, const char** tagEnd);
 
 	/*
 	* Replaces all tags with spaces effectively providing the text content only.
@@ -259,13 +259,13 @@ public:
 	* Returns pointer to field-content and length of content in iValueLength
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
-	static const char* JsonFindField(const char* jsonText, const char* fieldName, int32* valueLength);
+	static const char* JsonFindField(const char* jsonText, const char* fieldName, int* valueLength);
 
 	/*
 	* Returns pointer to field-content and length of content in iValueLength
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
-	static const char* JsonNextValue(const char* jsonText, int32* valueLength);
+	static const char* JsonNextValue(const char* jsonText, int* valueLength);
 	
 	/*
 	* Unquote http quoted string.

@@ -42,15 +42,15 @@ public:
 	void InitOptions();
 	void EnqueueScript(NzbInfo* nzbInfo, EEvent event);
 	void CheckQueue();
-	bool HasJob(int64 nzbId, bool* active);
+	bool HasJob(int nzbId, bool* active);
 	int64 GetQueueSize();
-	static NzbInfo* FindNzbInfo(DownloadQueue* downloadQueue, int64 nzbId);
+	static NzbInfo* FindNzbInfo(DownloadQueue* downloadQueue, int nzbId);
 
 private:
 	class QueueItem
 	{
 	public:
-		QueueItem(int64 nzbId, std::shared_ptr<const Extension::Script> script, EEvent event) :
+		QueueItem(int nzbId, std::shared_ptr<const Extension::Script> script, EEvent event) :
 			m_nzbId(nzbId), m_script(std::move(script)), m_event(event) {}
 		int64 GetNzbId() { return m_nzbId; }
 		const std::shared_ptr<const Extension::Script>& GetScript() const { return m_script; }

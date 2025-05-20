@@ -2500,7 +2500,7 @@ void DiskState::DeleteCacheFlag()
 	FileSystem::DeleteFile(flagFilename);
 }
 
-void DiskState::AppendNzbMessage(int64 nzbId, Message::EKind kind, const char* text)
+void DiskState::AppendNzbMessage(int nzbId, Message::EKind kind, const char* text)
 {
 	BString<1024> logFilename("%s%cn%i.log", g_Options->GetQueueDir(), PATH_SEPARATOR, nzbId);
 
@@ -2537,7 +2537,7 @@ void DiskState::AppendNzbMessage(int64 nzbId, Message::EKind kind, const char* t
 	outfile.Close();
 }
 
-void DiskState::LoadNzbMessages(int64 nzbId, MessageList* messages)
+void DiskState::LoadNzbMessages(int nzbId, MessageList* messages)
 {
 	// Important:
 	//   - Other threads may be writing into the log-file at any time;

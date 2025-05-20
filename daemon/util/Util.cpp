@@ -1107,7 +1107,7 @@ BreakLoop:
 	*output = '\0';
 }
 
-const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int32* valueLength)
+const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int* valueLength)
 {
 	BString<100> openTag("<%s>", tag);
 	BString<100> closeTag("</%s>", tag);
@@ -1126,21 +1126,21 @@ const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int32* valueLe
 	const char* pend = strstr(pstart, closeTag);
 	if (!pend) return nullptr;
 
-	uint32 tagLen = strlen(openTag);
+	int64 tagLen = strlen(openTag);
 	*valueLength = (int64)(pend - pstart - tagLen);
 
 	return pstart + tagLen;
 }
 
-bool WebUtil::XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int32 valueBufSize, const char** tagEnd)
+bool WebUtil::XmlParseTagValue(const char* xml, const char* tag, char* valueBuf, int valueBufSize, const char** tagEnd)
 {
-	int32 valueLen = 0;
+	int valueLen = 0;
 	const char* value = XmlFindTag(xml, tag, &valueLen);
 	if (!value)
 	{
 		return false;
 	}
-	int32 len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
+	int64 len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
 	strncpy(valueBuf, value, len);
 	valueBuf[len] = '\0';
 	if (tagEnd)
@@ -1384,7 +1384,7 @@ BreakLoop:
 	*output = '\0';
 }
 
-const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, int32* valueLength)
+const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, int* valueLength)
 {
 	BString<100> openTag("\"%s\"", fieldName);
 
@@ -1396,7 +1396,7 @@ const char* WebUtil::JsonFindField(const char* jsonText, const char* fieldName, 
 	return JsonNextValue(pstart, valueLength);
 }
 
-const char* WebUtil::JsonNextValue(const char* jsonText, int32* valueLength)
+const char* WebUtil::JsonNextValue(const char* jsonText, int* valueLength)
 {
 	const char* pstart = jsonText;
 
@@ -1430,7 +1430,7 @@ const char* WebUtil::JsonNextValue(const char* jsonText, int32* valueLength)
 		ch = *++pend;
 	}
 
-	*valueLength = (int32)(pend - pstart);
+	*valueLength = (int)(pend - pstart);
 	return pstart;
 }
 

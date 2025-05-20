@@ -471,10 +471,10 @@ public:
 		dhRedownloadAuto
 	};
 
-	int64 GetId() { return m_id; }
-	void SetId(int64 id);
+	int GetId() { return m_id; }
+	void SetId(int id);
 	static void ResetGenId(bool max);
-	static int64 GenerateId();
+	static int GenerateId();
 	EKind GetKind() { return m_kind; }
 	void SetKind(EKind kind) { m_kind = kind; }
 	const char* GetUrl() { return m_url; }

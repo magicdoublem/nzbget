@@ -144,7 +144,7 @@ void ServerStatList::ListOp(ServerStatList* serverStats, EStatOperation statOper
 }
 
 
-void NzbInfo::SetId(int64 id)
+void NzbInfo::SetId(int id)
 {
 	m_id = id;
 	if (m_idMax < m_id)
@@ -166,7 +166,7 @@ void NzbInfo::ResetGenId(bool max)
 	}
 }
 
-int64 NzbInfo::GenerateId()
+int NzbInfo::GenerateId()
 {
 	return ++m_idGen;
 }

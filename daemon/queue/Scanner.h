@@ -44,7 +44,7 @@ public:
 	EAddStatus AddExternalFile(const char* nzbName, const char* category, int priority,
 		const char* dupeKey, int dupeScore, EDupeMode dupeMode,
 		NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
-		const char* fileName, const char* buffer, int bufSize, int64* nzbId);
+		const char* fileName, const char* buffer, int bufSize, int* nzbId);
 	void InitPPParameters(const char* category, NzbParameterList* parameters, bool reset);
 
 protected:
@@ -76,7 +76,7 @@ private:
 		QueueData(const char* filename, const char* nzbName, const char* category,
 			int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
 			NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
-			EAddStatus* addStatus, int64* nzbId);
+			EAddStatus* addStatus, int* nzbId);
 		const char* GetFilename() { return m_filename; }
 		const char* GetNzbName() { return m_nzbName; }
 		const char* GetCategory() { return m_category; }
@@ -89,7 +89,7 @@ private:
 		bool GetAddPaused() { return m_addPaused; }
 		NzbInfo* GetUrlInfo() { return m_urlInfo; }
 		void SetAddStatus(EAddStatus addStatus);
-		void SetNzbId(int64 nzbId);
+		void SetNzbId(int nzbId);
 	private:
 		CString m_filename;
 		CString m_nzbName;
@@ -103,7 +103,7 @@ private:
 		bool m_addPaused;
 		NzbInfo* m_urlInfo;
 		EAddStatus* m_addStatus;
-		int64* m_nzbId;
+		int* m_nzbId;
 	};
 
 	typedef std::deque<QueueData> QueueList;
@@ -122,7 +122,7 @@ private:
 	void CheckIncomingNzbs(const char* directory, const char* category, bool checkStat);
 	bool AddFileToQueue(const char* filename, const char* nzbName, const char* category,
 		int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
-		NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo, int64* nzbId);
+		NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo, int* nzbId);
 	void ProcessIncomingFile(const char* directory, const char* baseFilename,
 		const char* fullFilename, const char* category);
 	bool CanProcessFile(const char* fullFilename, bool checkStat);
