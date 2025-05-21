@@ -208,7 +208,7 @@ public:
 class WebUtil
 {
 public:
-	static uint32 DecodeBase64(char* inputBuffer, int32 inputBufferLength, char* outputBuffer);
+	static uint32 DecodeBase64(char* inputBuffer, int inputBufferLength, char* outputBuffer);
 
 	/*
 	* Encodes string to be used as content of xml-tag.

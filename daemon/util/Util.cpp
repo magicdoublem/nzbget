@@ -886,14 +886,14 @@ void Util::Sleep(int ms)
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-uint32 WebUtil::DecodeBase64(char* inputBuffer, int32 inputBufferLength, char* outputBuffer)
+uint32 WebUtil::DecodeBase64(char* inputBuffer, int inputBufferLength, char* outputBuffer)
 {
 	uint32 InputBufferIndex  = 0;
 	uint32 OutputBufferIndex = 0;
 	uint32 InputBufferLength = inputBufferLength > 0 ? inputBufferLength : strlen(inputBuffer);
 
 	char ByteQuartet [4];
-	uint32 i = 0;
+	int32 i = 0;
 	while (InputBufferIndex < InputBufferLength)
 	{
 		// Ignore all characters except the ones in BASE64_ALPHABET
@@ -1126,8 +1126,8 @@ const char* WebUtil::XmlFindTag(const char* xml, const char* tag, int* valueLeng
 	const char* pend = strstr(pstart, closeTag);
 	if (!pend) return nullptr;
 
-	int64 tagLen = strlen(openTag);
-	*valueLength = (int64)(pend - pstart - tagLen);
+	int tagLen = strlen(openTag);
+	*valueLength = (int)(pend - pstart - tagLen);
 
 	return pstart + tagLen;
 }
@@ -1140,7 +1140,7 @@ bool WebUtil::XmlParseTagValue(const char* xml, const char* tag, char* valueBuf,
 	{
 		return false;
 	}
-	int64 len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
+	int len = valueLen < valueBufSize ? valueLen : valueBufSize - 1;
 	strncpy(valueBuf, value, len);
 	valueBuf[len] = '\0';
 	if (tagEnd)
