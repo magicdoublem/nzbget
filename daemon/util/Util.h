@@ -226,7 +226,7 @@ public:
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
 	static const char* XmlFindTag(const char* xml, const char* tag, int* valueLength);
-	
+
 	/*
 	* Parses tag-content into szValueBuf.
 	*/
@@ -266,7 +266,7 @@ public:
 	* The returned pointer points to the part of source-string, no additional strings are allocated.
 	*/
 	static const char* JsonNextValue(const char* jsonText, int* valueLength);
-	
+
 	/*
 	* Unquote http quoted string.
 	* The string is decoded on the place overwriting the content of raw-data.
