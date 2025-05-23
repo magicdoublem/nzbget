@@ -62,7 +62,7 @@ public:
 	virtual void Stop();
 
 private:
-	int64 m_id;
+	int m_id;
 	CString m_host;
 	int m_port;
 	CString m_secureCert;

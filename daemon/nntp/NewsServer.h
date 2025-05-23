@@ -36,7 +36,7 @@ public:
 		const char* user, const char* pass, bool joinGroup,
 		bool tls, const char* cipher, int maxConnections, int retention,
 		int level, int group, bool optional, unsigned int certVerificationfLevel);
-	int64 GetId() { return m_id; }
+	int GetId() { return m_id; }
 	int GetStateId() { return m_stateId; }
 	void SetStateId(int stateId) { m_stateId = stateId; }
 	bool GetActive() { return m_active; }
@@ -62,7 +62,7 @@ public:
 	unsigned int GetCertVerificationLevel() { return m_certVerificationfLevel; }
 
 private:
-	int64 m_id;
+	int m_id;
 	int m_stateId = 0;
 	bool m_active;
 	CString m_name;
