@@ -87,7 +87,7 @@ private:
     std::ostream& m_sout = std::cout;
     std::ostream& m_serr = std::cerr;
 
-	int m_nzbId;
+	int64 m_nzbId;
 
 	void LoadParFile(const char* parFile);
 };

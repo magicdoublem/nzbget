@@ -48,9 +48,9 @@ private:
 	int m_speed;
 	const char* m_messageid;
 	CString m_filename;
-	int m_part;
+	int64 m_part;
 	int64 m_offset;
-	int m_size;
+	int64 m_size;
 	bool m_sendHeaders;
 	int64 m_start;
 	NntpCache* m_cache;
@@ -230,9 +230,9 @@ void NntpProcessor::ServArticle()
 	if (from && off && to && end)
 	{
 		m_filename.Set(m_messageid + 1, (int)(from - m_messageid - 1));
-		m_part = atoi(from + 1);
-		m_offset = atoll(off + 1);
-		m_size = atoi(to + 1);
+		m_part = Util::safe_stoi64(from + 1);
+		m_offset = Util::safe_stoi64(off + 1);
+		m_size = Util::safe_stoi64(to + 1);
 
 		ok = !serv || ServerInList(serv + 1);
 

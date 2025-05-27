@@ -28,9 +28,9 @@ class ScanScriptController : public NzbScriptController
 {
 public:
 	static void ExecuteScripts(const char* nzbFilename, NzbInfo* nzbInfo,
-		const char* directory, CString* nzbName, CString* category, int* priority,
+		const char* directory, CString* nzbName, CString* category, int64* priority,
 		NzbParameterList* parameters, bool* addTop, bool* addPaused,
-		CString* dupeKey, int* dupeScore, EDupeMode* dupeMode);
+		CString* dupeKey, int64* dupeScore, EDupeMode* dupeMode);
 	static bool HasScripts();
 
 protected:
@@ -43,14 +43,14 @@ private:
 	const char* m_directory;
 	CString* m_nzbName;
 	CString* m_category;
-	int* m_priority;
+	int64* m_priority;
 	NzbParameterList* m_parameters;
 	bool* m_addTop;
 	bool* m_addPaused;
 	CString* m_dupeKey;
-	int* m_dupeScore;
+	int64* m_dupeScore;
 	EDupeMode* m_dupeMode;
-	int m_prefixLen;
+	int64 m_prefixLen;
 
 	void PrepareParams(const char* scriptName);
 };

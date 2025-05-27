@@ -416,7 +416,7 @@ void RepairController::FindPars(DownloadQueue* downloadQueue, NzbInfo* nzbInfo, 
 
 	for (FileInfo* fileInfo : nzbInfo->GetFileList())
 	{
-		int blockCount = 0;
+		int64 blockCount = 0;
 		if (ParParser::ParseParFilename(fileInfo->GetFilename(), fileInfo->GetFilenameConfirmed(), nullptr, &blockCount) &&
 			blockCount > 0)
 		{

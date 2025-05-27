@@ -62,7 +62,8 @@ public:
 	static std::vector<CString> SplitStr(const char* str, const char* separators);
 	static bool EndsWith(const char* str, const char* suffix, bool caseSensitive);
 	static bool AlphaNum(const char* str);
-
+	static int64 safe_stoi64(const char* str);
+	
 	template<typename T, typename U>
 	static constexpr bool CmpEqual(T t, U u) noexcept
 	{

@@ -467,7 +467,7 @@ void WebDownloader::ProcessHeader(const char* line)
 {
 	if (!strncasecmp(line, "Content-Length: ", 16))
 	{
-		m_contentLen = atoi(line + 16);
+		m_contentLen = Util::safe_stoi64(line + 16);
 		m_confirmedLength = true;
 	}
 	else if (!strncasecmp(line, "Content-Encoding: gzip", 22))

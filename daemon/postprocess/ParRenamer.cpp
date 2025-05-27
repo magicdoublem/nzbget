@@ -262,7 +262,7 @@ bool ParRenamer::IsSplittedFragment(const char* filename, const char* correctNam
 		{
 			for (p++; *p && strchr("0123456789", *p); p++) ;
 			splittedFragement = !*p;
-			splittedFragement = splittedFragement && atoi(diskBasename + baseLen + 1) <= 1; // .000 or .001
+			splittedFragement = splittedFragement && Util::safe_stoi64(diskBasename + baseLen + 1) <= 1; // .000 or .001
 		}
 	}
 

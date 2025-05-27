@@ -67,7 +67,7 @@ private:
 	void PauseUnpauseEntry(FileInfo* fileInfo, bool pause);
 	void DeleteEntry(FileInfo* fileInfo);
 	void MoveEntry(FileInfo* fileInfo, int64 offset);
-	void MoveGroup(NzbInfo* nzbInfo, int64 offset);
+	void MoveGroup(NzbInfo* nzbInfo, int offset);
 	void SortGroupFiles(NzbInfo* nzbInfo);
 	bool ItemListContainsItem(ItemList* itemList, int64 id);
 

@@ -150,14 +150,14 @@ public:
 	void SetSize(int64 size) { m_size = size; }
 	const char* GetCategory() { return m_category; }
 	void SetCategory(const char* category) { m_category = category; }
-	int GetImdbId() { return m_imdbId; }
-	void SetImdbId(int imdbId) { m_imdbId = imdbId; }
-	int GetRageId() { return m_rageId; }
-	void SetRageId(int rageId) { m_rageId = rageId; }
-	int GetTvdbId() { return m_tvdbId; }
-	void SetTvdbId(int tvdbId) { m_tvdbId = tvdbId; }
-	int GetTvmazeId() { return m_tvmazeId; }
-	void SetTvmazeId(int tvmazeId) { m_tvmazeId = tvmazeId; }
+	int64 GetImdbId() { return m_imdbId; }
+	void SetImdbId(int64 imdbId) { m_imdbId = imdbId; }
+	int64 GetRageId() { return m_rageId; }
+	void SetRageId(int64 rageId) { m_rageId = rageId; }
+	int64 GetTvdbId() { return m_tvdbId; }
+	void SetTvdbId(int64 tvdbId) { m_tvdbId = tvdbId; }
+	int64 GetTvmazeId() { return m_tvmazeId; }
+	void SetTvmazeId(int64 tvmazeId) { m_tvmazeId = tvmazeId; }
 	const char* GetDescription() { return m_description; }
 	void SetDescription(const char* description) { m_description = description ? description: ""; }
 	const char* GetSeason() { return m_season; }
@@ -170,8 +170,8 @@ public:
 	void SetAddCategory(const char* addCategory) { m_addCategory = addCategory ? addCategory : ""; }
 	bool GetPauseNzb() { return m_pauseNzb; }
 	void SetPauseNzb(bool pauseNzb) { m_pauseNzb = pauseNzb; }
-	int GetPriority() { return m_priority; }
-	void SetPriority(int priority) { m_priority = priority; }
+	int64 GetPriority() { return m_priority; }
+	void SetPriority(int64 priority) { m_priority = priority; }
 	time_t GetTime() { return m_time; }
 	void SetTime(time_t time) { m_time = time; }
 	EStatus GetStatus() { return m_status; }
@@ -184,8 +184,8 @@ public:
 	void SetDupeKey(const char* dupeKey) { m_dupeKey = dupeKey ? dupeKey : ""; }
 	void AppendDupeKey(const char* extraDupeKey);
 	void BuildDupeKey(const char* rageId, const char* tvdbId, const char* tvmazeId, const char* series);
-	int GetDupeScore() { return m_dupeScore; }
-	void SetDupeScore(int dupeScore) { m_dupeScore = dupeScore; }
+	int64 GetDupeScore() { return m_dupeScore; }
+	void SetDupeScore(int64 dupeScore) { m_dupeScore = dupeScore; }
 	EDupeMode GetDupeMode() { return m_dupeMode; }
 	void SetDupeMode(EDupeMode dupeMode) { m_dupeMode = dupeMode; }
 	const char* GetDupeStatus();
@@ -210,18 +210,18 @@ private:
 	bool m_seasonEpisodeParsed = false;
 	CString m_addCategory = "";
 	bool m_pauseNzb = false;
-	int m_priority = 0;
+	int64 m_priority = 0;
 	EStatus m_status = isUnknown;
 	EMatchStatus m_matchStatus = msIgnored;
 	int m_matchRule = 0;
 	CString m_dupeKey;
-	int m_dupeScore = 0;
+	int64 m_dupeScore = 0;
 	EDupeMode m_dupeMode = dmScore;
 	CString m_dupeStatus;
 	FeedFilterHelper* m_feedFilterHelper = nullptr;
 	Attributes m_attributes;
 
-	int ParsePrefixedInt(const char *value);
+	int64 ParsePrefixedInt(const char *value);
 	void ParseSeasonEpisode();
 };
 

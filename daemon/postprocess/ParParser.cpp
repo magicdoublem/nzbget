@@ -69,7 +69,7 @@ bool ParParser::SameParCollection(const char* filename1, const char* filename2, 
 		!strncasecmp(filename1, filename2, baseLen1);
 }
 
-bool ParParser::ParseParFilename(const char* parFilename, bool confirmedFilename, int* baseNameLen, int* blocks)
+bool ParParser::ParseParFilename(const char* parFilename, bool confirmedFilename, int* baseNameLen, int64* blocks)
 {
 	BString<1024> filename = parFilename;
 	for (char* p = filename; *p; p++) *p = tolower(*p); // convert string to lowercase
@@ -100,7 +100,7 @@ bool ParParser::ParseParFilename(const char* parFilename, bool confirmedFilename
 	}
 	*(filename + len - 5) = '\0';
 
-	int blockcnt = 0;
+	int64 blockcnt = 0;
 	char* p = strrchr(filename, '.');
 	if (p && !strncasecmp(p, ".vol", 4))
 	{
@@ -111,7 +111,7 @@ bool ParParser::ParseParFilename(const char* parFilename, bool confirmedFilename
 		}
 		if (b)
 		{
-			blockcnt = atoi(b+1);
+			blockcnt = Util::safe_stoi64(b+1);
 			*p = '\0';
 		}
 	}

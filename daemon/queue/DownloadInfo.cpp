@@ -144,7 +144,7 @@ void ServerStatList::ListOp(ServerStatList* serverStats, EStatOperation statOper
 }
 
 
-void NzbInfo::SetId(int id)
+void NzbInfo::SetId(int64 id)
 {
 	m_id = id;
 	if (m_idMax < m_id)
@@ -166,7 +166,7 @@ void NzbInfo::ResetGenId(bool max)
 	}
 }
 
-int NzbInfo::GenerateId()
+int64 NzbInfo::GenerateId()
 {
 	return ++m_idGen;
 }
@@ -268,7 +268,7 @@ CString NzbInfo::BuildFinalDirName()
 	return finalDir;
 }
 
-int NzbInfo::CalcHealth()
+int64 NzbInfo::CalcHealth()
 {
 	if (m_currentFailedSize == 0 || m_size == m_parSize)
 	{
@@ -286,7 +286,7 @@ int NzbInfo::CalcHealth()
 	return health;
 }
 
-int NzbInfo::CalcCriticalHealth(bool allowEstimation)
+int64 NzbInfo::CalcCriticalHealth(bool allowEstimation)
 {
 	if (m_size == 0)
 	{
@@ -299,7 +299,7 @@ int NzbInfo::CalcCriticalHealth(bool allowEstimation)
 	}
 
 	int64 goodParSize = m_parSize - m_parCurrentFailedSize;
-	int criticalHealth = (int)((m_size - goodParSize*2) * 1000 / (m_size - goodParSize));
+	int64 criticalHealth = (int)((m_size - goodParSize*2) * 1000 / (m_size - goodParSize));
 
 	if (goodParSize*2 > m_size)
 	{

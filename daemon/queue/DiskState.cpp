@@ -475,9 +475,9 @@ bool DiskState::LoadQueue(NzbList* queue, Servers* servers, StateDiskFile& infil
 	debug("Loading nzb list from disk");
 
 	// load nzb-infos
-	uint32 size;
+	int size;
 	if (infile.ScanLine("%i", &size) != 1) goto error;
-	for (uint32 i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		std::unique_ptr<NzbInfo> nzbInfo = std::make_unique<NzbInfo>();
 		if (!LoadNzbInfo(nzbInfo.get(), servers, infile, formatVersion)) goto error;
@@ -511,11 +511,11 @@ bool DiskState::LoadProgress(NzbList* queue, Servers* servers, StateDiskFile& in
 	debug("Loading nzb progress from disk");
 
 	// load nzb-infos
-	uint32 size;
+	int size;
 	if (infile.ScanLine("%i", &size) != 1) goto error;
-	for (uint32 i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
-		int64 id;
+		int id;
 		if (infile.ScanLine("%i", &id) != 1) goto error;
 
 		NzbInfo* nzbInfo = queue->Find(id);
@@ -645,7 +645,7 @@ bool DiskState::LoadNzbInfo(NzbInfo* nzbInfo, Servers* servers, StateDiskFile& i
 	int desiredServerId = 0;
 	int numItems = 0;
 
-	int64 id;
+	int id;
 	if (infile.ScanLine("%i", &id) != 1) goto error;
 	nzbInfo->SetId(id);
 
@@ -1424,7 +1424,7 @@ bool DiskState::LoadDupInfo(DupInfo* dupInfo, StateDiskFile& infile, int formatV
 	int status;
 	uint32 High, Low;
 	uint32 fullContentHash, filteredContentHash = 0;
-	int dupeScore, dupeMode;
+	int64 dupeScore, dupeMode;
 	if (infile.ScanLine("%i,%u,%u,%u,%u,%i,%i", &status, &High, &Low, &fullContentHash, &filteredContentHash, &dupeScore, &dupeMode) != 7) goto error;
 
 	dupInfo->SetStatus((DupInfo::EStatus)status);
@@ -1940,12 +1940,12 @@ bool DiskState::LoadAllFileInfos(DownloadQueue* downloadQueue)
 		useHibernate = infile != nullptr;
 		if (useHibernate)
 		{
-			uint32 fileCount = 0;
+			int fileCount = 0;
 			for (NzbInfo* nzbInfo : downloadQueue->GetQueue())
 			{
 				fileCount += nzbInfo->GetFileList()->size();
 			}
-			uint32 size = 0;
+			int size = 0;
 			useHibernate = infile->ScanLine("%i", &size) == 1 && size == fileCount;
 		}
 		if (!useHibernate)
@@ -1963,7 +1963,7 @@ bool DiskState::LoadAllFileInfos(DownloadQueue* downloadQueue)
 			bool res = false;
 			if (useHibernate)
 			{
-				int64 id = 0;
+				int id = 0;
 				infile->ScanLine("%i", &id);
 				if (id == fileInfo->GetId())
 				{
@@ -2003,7 +2003,7 @@ bool DiskState::LoadAllFileStates(DownloadQueue* downloadQueue, Servers* servers
 	DirBrowser dir(g_Options->GetQueueDir());
 	while (const char* filename = dir.Next())
 	{
-		int64 id;
+		int id;
 		char suffix;
 		if (sscanf(filename, "%i%c", &id, &suffix) == 2)
 		{
@@ -2500,7 +2500,7 @@ void DiskState::DeleteCacheFlag()
 	FileSystem::DeleteFile(flagFilename);
 }
 
-void DiskState::AppendNzbMessage(int nzbId, Message::EKind kind, const char* text)
+void DiskState::AppendNzbMessage(int64 nzbId, Message::EKind kind, const char* text)
 {
 	BString<1024> logFilename("%s%cn%i.log", g_Options->GetQueueDir(), PATH_SEPARATOR, nzbId);
 
@@ -2537,7 +2537,7 @@ void DiskState::AppendNzbMessage(int nzbId, Message::EKind kind, const char* tex
 	outfile.Close();
 }
 
-void DiskState::LoadNzbMessages(int nzbId, MessageList* messages)
+void DiskState::LoadNzbMessages(int64 nzbId, MessageList* messages)
 {
 	// Important:
 	//   - Other threads may be writing into the log-file at any time;
@@ -2557,7 +2557,7 @@ void DiskState::LoadNzbMessages(int nzbId, MessageList* messages)
 		return;
 	}
 
-	int64 id = 0;
+	int id = 0;
 	char line[1024];
 	while (infile.ReadLine(line, sizeof(line)))
 	{

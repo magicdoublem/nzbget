@@ -414,7 +414,7 @@ void DownloadBinCommand::Execute()
 	bool addPaused = ntohl(DownloadRequest.m_addPaused);
 	bool addTop = ntohl(DownloadRequest.m_addFirst);
 	int dupeMode = ntohl(DownloadRequest.m_dupeMode);
-	int dupeScore = ntohl(DownloadRequest.m_dupeScore);
+	int64 dupeScore = ntohl(DownloadRequest.m_dupeScore);
 
 	bool ok = false;
 

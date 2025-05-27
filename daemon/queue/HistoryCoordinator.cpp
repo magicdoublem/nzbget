@@ -821,7 +821,7 @@ void HistoryCoordinator::HistorySetDupeParam(HistoryInfo* historyInfo, DownloadQ
 				break;
 
 			case DownloadQueue::eaHistorySetDupeScore:
-				historyInfo->GetNzbInfo()->SetDupeScore(atoi(text));
+				historyInfo->GetNzbInfo()->SetDupeScore(Util::safe_stoi64(text));
 				break;
 
 			case DownloadQueue::eaHistorySetDupeMode:
@@ -858,7 +858,7 @@ void HistoryCoordinator::HistorySetDupeParam(HistoryInfo* historyInfo, DownloadQ
 				break;
 
 			case DownloadQueue::eaHistorySetDupeScore:
-				historyInfo->GetDupInfo()->SetDupeScore(atoi(text));
+				historyInfo->GetDupInfo()->SetDupeScore(Util::safe_stoi64(text));
 				break;
 
 			case DownloadQueue::eaHistorySetDupeMode:

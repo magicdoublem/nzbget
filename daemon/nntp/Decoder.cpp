@@ -146,13 +146,13 @@ void Decoder::ParseYpart(const char* buffer)
 	if (pb)
 	{
 		pb += 7; //=strlen(" begin=")
-		m_beginPos = static_cast<int64>(atoll(pb));
+		m_beginPos = static_cast<int64>(Util::safe_stoi64(pb));
 	}
 	pb = strstr(buffer, " end=");
 	if (pb)
 	{
 		pb += 5; //=strlen(" end=")
-		m_endPos = static_cast<int64>(atoll(pb));
+		m_endPos = static_cast<int64>(Util::safe_stoi64(pb));
 	}
 }
 

@@ -30,12 +30,12 @@
 #include "Util.h"
 #include "FileSystem.h"
 
-int64 Scanner::m_idGen = 0;
+int Scanner::m_idGen = 0;
 
 Scanner::QueueData::QueueData(const char* filename, const char* nzbName, const char* category,
-	int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
+	int64 priority, const char* dupeKey, int64 dupeScore, EDupeMode dupeMode,
 	NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
-	EAddStatus* addStatus, int* nzbId)
+	EAddStatus* addStatus, int64* nzbId)
 {
 	m_filename = filename;
 	m_nzbName = nzbName;
@@ -64,7 +64,7 @@ void Scanner::QueueData::SetAddStatus(EAddStatus addStatus)
 	}
 }
 
-void Scanner::QueueData::SetNzbId(int nzbId)
+void Scanner::QueueData::SetNzbId(int64 nzbId)
 {
 	if (m_nzbId)
 	{
@@ -276,16 +276,16 @@ void Scanner::ProcessIncomingFile(const char* directory, const char* baseFilenam
 	CString nzbName = "";
 	CString nzbCategory = category;
 	NzbParameterList parameters;
-	int priority = 0;
+	int64 priority = 0;
 	bool addTop = false;
 	bool addPaused = false;
 	CString dupeKey = "";
-	int dupeScore = 0;
+	int64 dupeScore = 0;
 	EDupeMode dupeMode = dmScore;
 	EAddStatus addStatus = asSkipped;
 	QueueData* queueData = nullptr;
 	NzbInfo* nzbInfo = nullptr;
-	int nzbId = 0;
+	int64 nzbId = 0;
 
 	for (QueueData& queueData1 : m_queueList)
 	{
@@ -411,8 +411,8 @@ void Scanner::InitPPParameters(const char* category, NzbParameterList* parameter
 }
 
 bool Scanner::AddFileToQueue(const char* filename, const char* nzbName, const char* category,
-	int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
-	NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo, int* nzbId)
+	int64 priority, const char* dupeKey, int64 dupeScore, EDupeMode dupeMode,
+	NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo, int64* nzbId)
 {
 	const char* basename = FileSystem::BaseFileName(filename);
 
@@ -513,9 +513,9 @@ void Scanner::ScanNzbDir(bool syncMode)
 }
 
 Scanner::EAddStatus Scanner::AddExternalFile(const char* nzbName, const char* category,
-	int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
+	int64 priority, const char* dupeKey, int64 dupeScore, EDupeMode dupeMode,
 	NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
-	const char* fileName, const char* buffer, int bufSize, int* nzbId)
+	const char* fileName, const char* buffer, int64 bufSize, int64* nzbId)
 {
 	bool nzb = false;
 	BString<1024> tempFileName;

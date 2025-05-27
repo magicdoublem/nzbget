@@ -259,9 +259,9 @@ void QueueEditor::MoveEntry(FileInfo* fileInfo, int64 offset)
 	}
 }
 
-void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int64 offset)
+void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
 {
-	int64 entry = 0;
+	int entry = 0;
 	for (NzbInfo* nzbInfo2 : m_downloadQueue->GetQueue())
 	{
 		if (nzbInfo2 == nzbInfo)
@@ -271,8 +271,8 @@ void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int64 offset)
 		entry++;
 	}
 
-	int64 newEntry = entry + offset;
-	int64 size = (int64)m_downloadQueue->GetQueue()->size();
+	int newEntry = entry + offset;
+	int size = (int)m_downloadQueue->GetQueue()->size();
 
 	if (newEntry < 0)
 	{
@@ -280,7 +280,7 @@ void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int64 offset)
 	}
 	if (newEntry > size - 1)
 	{
-		newEntry = (int64)size - 1;
+		newEntry = (int)size - 1;
 	}
 
 	if (newEntry >= 0 && newEntry <= size - 1)
@@ -337,8 +337,8 @@ bool QueueEditor::InternEditList(ItemList* itemList,
 	if (!itemList)
 	{
 		itemList = &workItems;
-		int offset = args && (action == DownloadQueue::eaFileMoveOffset ||
-			action == DownloadQueue::eaGroupMoveOffset) ? atoi(args) : 0;
+		int64 offset = args && (action == DownloadQueue::eaFileMoveOffset ||
+			action == DownloadQueue::eaGroupMoveOffset) ? Util::safe_stoi64(args) : 0;
 		PrepareList(itemList, idList, action, offset);
 	}
 
@@ -899,7 +899,7 @@ void QueueEditor::SetNzbPriority(NzbInfo* nzbInfo, const char* priority)
 {
 	debug("Setting priority %s for %s", priority, nzbInfo->GetName());
 
-	int priorityVal = atoi(priority);
+	int64 priorityVal = Util::safe_stoi64(priority);
 	nzbInfo->SetPriority(priorityVal);
 }
 
@@ -1102,8 +1102,8 @@ bool QueueEditor::MoveGroupsTo(ItemList* itemList, IdList* idList, bool before, 
 		return false;
 	}
 
-	int targetId = atoi(args);
-	int offset = 0;
+	int64 targetId = Util::safe_stoi64(args);
+	int64 offset = 0;
 
 	// check if target is in list of moved items
 	if (ItemListContainsItem(itemList, targetId))
@@ -1142,9 +1142,9 @@ bool QueueEditor::MoveGroupsTo(ItemList* itemList, IdList* idList, bool before, 
 	if (offset == 0)
 	{
 		// calculate offset between first moving item and target
-		int moveId = itemList->at(0).m_nzbInfo->GetId();
+		int64 moveId = itemList->at(0).m_nzbInfo->GetId();
 		bool progress = false;
-		int step = 0;
+		int64 step = 0;
 		for (NzbInfo* nzbInfo : m_downloadQueue->GetQueue())
 		{
 			int64 id = nzbInfo->GetId();
@@ -1230,7 +1230,7 @@ void QueueEditor::SetNzbDupeParam(NzbInfo* nzbInfo, DownloadQueue::EEditAction a
 			break;
 
 		case DownloadQueue::eaGroupSetDupeScore:
-			nzbInfo->SetDupeScore(atoi(text));
+			nzbInfo->SetDupeScore(Util::safe_stoi64(text));
 			break;
 
 		case DownloadQueue::eaGroupSetDupeMode:

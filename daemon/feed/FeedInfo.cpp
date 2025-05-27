@@ -66,14 +66,14 @@ void FeedItemInfo::SetEpisode(const char* episode)
 	m_episodeNum = episode ? ParsePrefixedInt(episode) : 0;
 }
 
-int FeedItemInfo::ParsePrefixedInt(const char *value)
+int64 FeedItemInfo::ParsePrefixedInt(const char *value)
 {
 	const char* val = value;
 	if (!strchr("0123456789", *val))
 	{
 		val++;
 	}
-	return atoi(val);
+	return Util::safe_stoi64(val);
 }
 
 void FeedItemInfo::AppendDupeKey(const char* extraDupeKey)

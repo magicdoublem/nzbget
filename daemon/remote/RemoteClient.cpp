@@ -110,7 +110,7 @@ bool RemoteClient::ReceiveBoolResponse()
  */
 bool RemoteClient::RequestServerDownload(const char* nzbFilename, const char* nzbContent,
 	const char* category, bool addFirst, bool addPaused, int priority,
-	const char* dupeKey, int dupeMode, int dupeScore)
+	const char* dupeKey, int dupeMode, int64 dupeScore)
 {
 	// Read the file into the buffer
 	CharBuffer buffer;
@@ -750,7 +750,7 @@ bool RemoteClient::RequestServerDumpDebug()
 	return OK;
 }
 
-bool RemoteClient::RequestServerEditQueue(DownloadQueue::EEditAction action, int offset, const char* text,
+bool RemoteClient::RequestServerEditQueue(DownloadQueue::EEditAction action, int64 offset, const char* text,
 	IdList* idList, NameList* nameList, ERemoteMatchMode matchMode)
 {
 	if ((idList == nullptr || idList->size() == 0) && (nameList == nullptr || nameList->size() == 0))

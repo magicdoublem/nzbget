@@ -275,7 +275,7 @@ bool DirectUnpack::IsMainArchive(const char* filename)
 {
 	RegEx regExRarPart(".*\\.part([0-9]+)\\.rar$");
 	bool mainPart = Util::EndsWith(filename, ".rar", false) &&
-		(!regExRarPart.Match(filename) || atoi(filename + regExRarPart.GetMatchStart(1)) == 1);
+		(!regExRarPart.Match(filename) || Util::safe_stoi64(filename + regExRarPart.GetMatchStart(1)) == 1);
 	return mainPart;
 }
 

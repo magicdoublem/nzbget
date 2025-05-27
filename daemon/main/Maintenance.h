@@ -50,7 +50,7 @@ private:
 	MessageList m_messages;
 	Mutex m_logMutex;
 	Mutex m_controllerMutex;
-	int64 m_idMessageGen = 0;
+	int m_idMessageGen = 0;
 	UpdateScriptController* m_updateScriptController = nullptr;
 	CString m_updateScript;
 

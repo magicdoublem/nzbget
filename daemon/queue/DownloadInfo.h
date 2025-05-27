@@ -471,10 +471,10 @@ public:
 		dhRedownloadAuto
 	};
 
-	int GetId() { return m_id; }
-	void SetId(int id);
+	int64 GetId() { return m_id; }
+	void SetId(int64 id);
 	static void ResetGenId(bool max);
-	static int GenerateId();
+	static int64 GenerateId();
 	EKind GetKind() { return m_kind; }
 	void SetKind(EKind kind) { m_kind = kind; }
 	const char* GetUrl() { return m_url; }
@@ -535,8 +535,8 @@ public:
 	void SetCurrentSuccessArticles(int currentSuccessArticles) { m_currentSuccessArticles = currentSuccessArticles; }
 	int GetCurrentFailedArticles() { return m_currentFailedArticles; }
 	void SetCurrentFailedArticles(int currentFailedArticles) { m_currentFailedArticles = currentFailedArticles; }
-	int GetPriority() { return m_priority; }
-	void SetPriority(int priority) { m_priority = priority; }
+	int64 GetPriority() { return m_priority; }
+	void SetPriority(int64 priority) { m_priority = priority; }
 	int GetExtraPriority() { return m_extraPriority; }
 	void SetExtraPriority(int extraPriority) { m_extraPriority = extraPriority; }
 	bool HasExtraPriority() { return m_extraPriority > 0; }
@@ -599,12 +599,12 @@ public:
 	ScriptStatusList* GetScriptStatuses() { return &m_scriptStatuses; }
 	ServerStatList* GetServerStats() { return &m_serverStats; }
 	ServerStatList* GetCurrentServerStats() { return &m_currentServerStats; }
-	int CalcHealth();
-	int CalcCriticalHealth(bool allowEstimation);
+	int64 CalcHealth();
+	int64 CalcCriticalHealth(bool allowEstimation);
 	const char* GetDupeKey() { return m_dupeKey; }
 	void SetDupeKey(const char* dupeKey) { m_dupeKey = dupeKey ? dupeKey : ""; }
-	int GetDupeScore() { return m_dupeScore; }
-	void SetDupeScore(int dupeScore) { m_dupeScore = dupeScore; }
+	int64 GetDupeScore() { return m_dupeScore; }
+	void SetDupeScore(int64 dupeScore) { m_dupeScore = dupeScore; }
 	EDupeMode GetDupeMode() { return m_dupeMode; }
 	void SetDupeMode(EDupeMode dupeMode) { m_dupeMode = dupeMode; }
 	EDupeHint GetDupeHint() { return m_dupeHint; }
@@ -732,7 +732,7 @@ private:
 	bool m_cleanupDisk = false;
 	bool m_unpackCleanedUpDisk = false;
 	CString m_dupeKey = "";
-	int m_dupeScore = 0;
+	int64 m_dupeScore = 0;
 	EDupeMode m_dupeMode = dmScore;
 	EDupeHint m_dupeHint = dhNone;
 	uint32 m_fullContentHash = 0;
@@ -890,7 +890,7 @@ public:
 	const char* GetDupeKey() { return m_dupeKey; }
 	void SetDupeKey(const char* dupeKey) { m_dupeKey = dupeKey; }
 	int GetDupeScore() { return m_dupeScore; }
-	void SetDupeScore(int dupeScore) { m_dupeScore = dupeScore; }
+	void SetDupeScore(int64 dupeScore) { m_dupeScore = dupeScore; }
 	EDupeMode GetDupeMode() { return m_dupeMode; }
 	void SetDupeMode(EDupeMode dupeMode) { m_dupeMode = dupeMode; }
 	int64 GetSize() { return m_size; }

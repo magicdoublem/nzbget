@@ -103,13 +103,13 @@ private:
 		bool IsValid() { return m_isValid; }
 		ERuleCommand GetCommand() { return m_command; }
 		const char* GetCategory() { return m_category; }
-		int GetPriority() { return m_priority; }
-		int GetAddPriority() { return m_addPriority; }
+		int64 GetPriority() { return m_priority; }
+		int64 GetAddPriority() { return m_addPriority; }
 		bool GetPause() { return m_pause; }
 		const char* GetDupeKey() { return m_dupeKey; }
 		const char* GetAddDupeKey() { return m_addDupeKey; }
-		int GetDupeScore() { return m_dupeScore; }
-		int GetAddDupeScore() { return m_addDupeScore; }
+		int64 GetDupeScore() { return m_dupeScore; }
+		int64 GetAddDupeScore() { return m_addDupeScore; }
 		EDupeMode GetDupeMode() { return m_dupeMode; }
 		const char* GetRageId() { return m_rageId; }
 		const char* GetTvdbId() { return m_tvdbId; }
@@ -136,11 +136,11 @@ private:
 		bool m_isValid = false;
 		ERuleCommand m_command = frAccept;
 		CString m_category;
-		int m_priority = 0;
-		int m_addPriority = 0;
+		int64 m_priority = 0;
+		int64 m_addPriority = 0;
 		bool m_pause = false;
-		int m_dupeScore;
-		int m_addDupeScore = 0;
+		int64 m_dupeScore;
+		int64 m_addDupeScore = 0;
 		CString m_dupeKey;
 		CString m_addDupeKey;
 		EDupeMode m_dupeMode = dmScore;

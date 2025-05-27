@@ -33,12 +33,12 @@ public:
 	void SetVerbose(bool verbose) { m_verbose = verbose; };
 	bool RequestServerDownload(const char* nzbFilename, const char* nzbContent, const char* category,
 		bool addFirst, bool addPaused, int priority,
-		const char* dupeKey, int dupeMode, int dupeScore);
+		const char* dupeKey, int dupeMode, int64 dupeScore);
 	bool RequestServerList(bool files, bool groups, const char* pattern);
 	bool RequestServerPauseUnpause(bool pause, ERemotePauseUnpauseAction action);
 	bool RequestServerSetDownloadRate(int rate);
 	bool RequestServerDumpDebug();
-	bool RequestServerEditQueue(DownloadQueue::EEditAction action, int offset, const char* text,
+	bool RequestServerEditQueue(DownloadQueue::EEditAction action, int64 offset, const char* text,
 		IdList* idList, NameList* nameList, ERemoteMatchMode matchMode);
 	bool RequestServerLog(int lines);
 	bool RequestServerShutdown();

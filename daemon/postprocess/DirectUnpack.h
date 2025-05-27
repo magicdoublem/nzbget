@@ -60,7 +60,7 @@ private:
 
 	typedef std::deque<CString> ArchiveList;
 
-	int m_nzbId;
+	int64 m_nzbId;
 	CString m_name;
 	CString m_infoName;
 	CString m_infoNameUp;

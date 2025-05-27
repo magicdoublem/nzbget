@@ -20,11 +20,14 @@
 
 
 #include "nzbget.h"
-
+#include <cstdint>
+#include <string>
 #include <sstream>
 #include <array>
 #include "Util.h"			
 #include "YEncode.h"
+#include <boost/spirit/include/qi.hpp>
+
 
 #ifdef WIN32
 #include "utf8.h"
@@ -884,6 +887,14 @@ int64 Util::CurrentTicks()
 void Util::Sleep(int ms)
 {
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
+int64 Util::safe_stoi64(const char* str)
+{
+    int64 result = 0;
+    namespace qi = boost::spirit::qi;
+    qi::parse(str, str + std::strlen(str), qi::long_long, result);
+    return result; // Returns 0 on failure (like atoi64)
 }
 
 uint32 WebUtil::DecodeBase64(char* inputBuffer, int inputBufferLength, char* outputBuffer)

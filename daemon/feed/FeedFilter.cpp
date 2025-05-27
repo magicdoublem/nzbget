@@ -664,7 +664,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasPriority = true;
-			m_priority = atoi(value);
+			m_priority = Util::safe_stoi64(value);
 		}
 		else if (!strcasecmp(option, "priority+") || !strcasecmp(option, "pr+") || !strcasecmp(option, "r+"))
 		{
@@ -674,7 +674,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasAddPriority = true;
-			m_addPriority = atoi(value);
+			m_addPriority = Util::safe_stoi64(value);
 		}
 		else if (!strcasecmp(option, "dupescore") || !strcasecmp(option, "ds") || !strcasecmp(option, "s"))
 		{
@@ -684,7 +684,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasDupeScore = true;
-			m_dupeScore = atoi(value);
+			m_dupeScore = Util::safe_stoi64(value);
 		}
 		else if (!strcasecmp(option, "dupescore+") || !strcasecmp(option, "ds+") || !strcasecmp(option, "s+"))
 		{
@@ -694,7 +694,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasAddDupeScore = true;
-			m_addDupeScore = atoi(value);
+			m_addDupeScore = Util::safe_stoi64(value);
 		}
 		else if (!strcasecmp(option, "dupekey") || !strcasecmp(option, "dk") || !strcasecmp(option, "k"))
 		{
@@ -759,7 +759,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 		else if (strchr("0123456789-+", *option))
 		{
 			m_hasPriority = true;
-			m_priority = atoi(option);
+			m_priority = Util::safe_stoi64(option);
 		}
 		else
 		{
@@ -916,7 +916,7 @@ const char* FeedFilter::Rule::GetRefValue(FeedItemInfo& feedItemInfo, const char
 		return feedItemInfo.GetEpisode() ? feedItemInfo.GetEpisode() : "";
 	}
 
-	int index = atoi(varName) - 1;
+	int64 index = Util::safe_stoi64(varName) - 1;
 	if (index >= 0 && index < (int)m_refValues.size())
 	{
 		return m_refValues[index];

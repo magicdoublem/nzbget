@@ -99,7 +99,7 @@ private:
 	{
 		FileInfo* m_fileInfo;
 		int m_blockCount;
-		BlockInfo(FileInfo* fileInfo, int blockCount) :
+		BlockInfo(FileInfo* fileInfo, int64 blockCount) :
 			m_fileInfo(fileInfo), m_blockCount(blockCount) {}
 	};
 
