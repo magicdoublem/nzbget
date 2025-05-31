@@ -259,9 +259,9 @@ void QueueEditor::MoveEntry(FileInfo* fileInfo, int64 offset)
 	}
 }
 
-void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
+void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int64 offset)
 {
-	int entry = 0;
+	int64 entry = 0;
 	for (NzbInfo* nzbInfo2 : m_downloadQueue->GetQueue())
 	{
 		if (nzbInfo2 == nzbInfo)
@@ -271,8 +271,8 @@ void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
 		entry++;
 	}
 
-	int newEntry = entry + offset;
-	int size = (int)m_downloadQueue->GetQueue()->size();
+	int64 newEntry = entry + offset;
+	int64 size = (int)m_downloadQueue->GetQueue()->size();
 
 	if (newEntry < 0)
 	{
@@ -280,7 +280,7 @@ void QueueEditor::MoveGroup(NzbInfo* nzbInfo, int offset)
 	}
 	if (newEntry > size - 1)
 	{
-		newEntry = (int)size - 1;
+		newEntry = (int64)size - 1;
 	}
 
 	if (newEntry >= 0 && newEntry <= size - 1)
