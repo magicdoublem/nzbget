@@ -66,14 +66,14 @@ void FeedItemInfo::SetEpisode(const char* episode)
 	m_episodeNum = episode ? ParsePrefixedInt(episode) : 0;
 }
 
-int64 FeedItemInfo::ParsePrefixedInt(const char *value)
+int FeedItemInfo::ParsePrefixedInt(const char *value)
 {
 	const char* val = value;
 	if (!strchr("0123456789", *val))
 	{
 		val++;
 	}
-	return Util::safe_stoi64(val);
+	return Util::StrToNum<int>(val).value_or(0);
 }
 
 void FeedItemInfo::AppendDupeKey(const char* extraDupeKey)
@@ -86,9 +86,9 @@ void FeedItemInfo::AppendDupeKey(const char* extraDupeKey)
 
 void FeedItemInfo::BuildDupeKey(const char* rageId, const char* tvdbId, const char* tvmazeId, const char* series)
 {
-	int rageIdVal = !Util::EmptyStr(rageId) ? atoi(rageId) : m_rageId;
-	int tvdbIdVal = !Util::EmptyStr(tvdbId) ? atoi(tvdbId) : m_tvdbId;
-	int tvmazeIdVal = !Util::EmptyStr(tvmazeId) ? atoi(tvmazeId) : m_tvmazeId;
+	int rageIdVal = !Util::EmptyStr(rageId) ? Util::StrToNum<int>(rageId).value_or(0) : m_rageId;
+	int tvdbIdVal = !Util::EmptyStr(tvdbId) ? Util::StrToNum<int>(tvdbId).value_or(0) : m_tvdbId;
+	int tvmazeIdVal = !Util::EmptyStr(tvmazeId) ? Util::StrToNum<int>(tvmazeId).value_or(0) : m_tvmazeId;
 
 	if (m_imdbId != 0)
 	{
@@ -150,7 +150,7 @@ void FeedItemInfo::ParseSeasonEpisode()
 
 	if (regEx->Match(m_title))
 	{
-		SetSeason(BString<100>("S%02d", atoi(m_title + regEx->GetMatchStart(1))));
+		SetSeason(BString<100>("S%02d", Util::StrToNum<int>(m_title + regEx->GetMatchStart(1)).value_or(0)));
 
 		BString<100> regValue;
 		regValue.Set(m_title + regEx->GetMatchStart(2), regEx->GetMatchLen(2));

@@ -129,7 +129,7 @@ void FeedFile::Parse_StartElement(const char* name, const char **atts)
 			}
 			else if (!strcmp("length", atts[0]))
 			{
-				int64 size = Util::safe_stoi64(atts[1]);
+				int64 size = Util::StrToNum<int64>(atts[1]).value_or(0);
 				m_feedItemInfo->SetSize(size);
 			}
 		}
@@ -145,32 +145,32 @@ void FeedFile::Parse_StartElement(const char* name, const char **atts)
 		if (m_feedItemInfo->GetSize() == 0 &&
 			!strcmp("size", atts[1]))
 		{
-			int64 size = Util::safe_stoi64(atts[3]);
+			int64 size = Util::StrToNum<int64>(atts[3]).value_or(0);
 			m_feedItemInfo->SetSize(size);
 		}
 
 		//<newznab:attr name="imdb" value="1588173"/>
 		else if (!strcmp("imdb", atts[1]))
 		{
-			m_feedItemInfo->SetImdbId(Util::safe_stoi64(atts[3]));
+			m_feedItemInfo->SetImdbId(Util::StrToNum<int>(atts[3]).value_or(0));
 		}
 
 		//<newznab:attr name="rageid" value="33877"/>
 		else if (!strcmp("rageid", atts[1]))
 		{
-			m_feedItemInfo->SetRageId(Util::safe_stoi64(atts[3]));
+			m_feedItemInfo->SetRageId(Util::StrToNum<int>(atts[3]).value_or(0));
 		}
 
 		//<newznab:attr name="tvdbid" value="33877"/>
 		else if (!strcmp("tvdbid", atts[1]))
 		{
-			m_feedItemInfo->SetTvdbId(Util::safe_stoi64(atts[3]));
+			m_feedItemInfo->SetTvdbId(Util::StrToNum<int>(atts[3]).value_or(0));
 		}
 
 		//<newznab:attr name="tvmazeid" value="33877"/>
 		else if (!strcmp("tvmazeid", atts[1]))
 		{
-			m_feedItemInfo->SetTvmazeId(Util::safe_stoi64(atts[3]));
+			m_feedItemInfo->SetTvmazeId(Util::StrToNum<int>(atts[3]).value_or(0));
 		}
 
 		//<newznab:attr name="episode" value="E09"/>

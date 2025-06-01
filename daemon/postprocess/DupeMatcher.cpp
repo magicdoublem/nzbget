@@ -118,7 +118,7 @@ void RarLister::AddMessage(Message::EKind kind, const char* text)
 	else if (!strncasecmp(text, "        Size: ", 14))
 	{
 		m_lastSizeMax = false;
-		int64 size = Util::safe_stoi64(text + 14);
+		int64 size = Util::StrToNum<int64>(text + 14).value_or(0);
 		if (size > m_maxSize)
 		{
 			m_maxSize = size;

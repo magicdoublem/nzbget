@@ -33,7 +33,7 @@
 int Scanner::m_idGen = 0;
 
 Scanner::QueueData::QueueData(const char* filename, const char* nzbName, const char* category,
-	int64 priority, const char* dupeKey, int64 dupeScore, EDupeMode dupeMode,
+	int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
 	NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
 	EAddStatus* addStatus, int64* nzbId)
 {
@@ -276,11 +276,11 @@ void Scanner::ProcessIncomingFile(const char* directory, const char* baseFilenam
 	CString nzbName = "";
 	CString nzbCategory = category;
 	NzbParameterList parameters;
-	int64 priority = 0;
+	int priority = 0;
 	bool addTop = false;
 	bool addPaused = false;
 	CString dupeKey = "";
-	int64 dupeScore = 0;
+	int dupeScore = 0;
 	EDupeMode dupeMode = dmScore;
 	EAddStatus addStatus = asSkipped;
 	QueueData* queueData = nullptr;
@@ -515,7 +515,7 @@ void Scanner::ScanNzbDir(bool syncMode)
 }
 
 Scanner::EAddStatus Scanner::AddExternalFile(const char* nzbName, const char* category,
-	int64 priority, const char* dupeKey, int64 dupeScore, EDupeMode dupeMode,
+	int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
 	NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
 	const char* fileName, const char* buffer, int64 bufSize, int64* nzbId)
 {

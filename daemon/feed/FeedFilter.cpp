@@ -664,7 +664,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasPriority = true;
-			m_priority = Util::safe_stoi64(value);
+			m_priority = Util::StrToNum<int>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "priority+") || !strcasecmp(option, "pr+") || !strcasecmp(option, "r+"))
 		{
@@ -674,7 +674,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasAddPriority = true;
-			m_addPriority = Util::safe_stoi64(value);
+			m_addPriority = Util::StrToNum<int>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "dupescore") || !strcasecmp(option, "ds") || !strcasecmp(option, "s"))
 		{
@@ -684,7 +684,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasDupeScore = true;
-			m_dupeScore = Util::safe_stoi64(value);
+			m_dupeScore = Util::StrToNum<int>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "dupescore+") || !strcasecmp(option, "ds+") || !strcasecmp(option, "s+"))
 		{
@@ -694,7 +694,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasAddDupeScore = true;
-			m_addDupeScore = Util::safe_stoi64(value);
+			m_addDupeScore = Util::StrToNum<int>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "dupekey") || !strcasecmp(option, "dk") || !strcasecmp(option, "k"))
 		{
@@ -759,7 +759,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 		else if (strchr("0123456789-+", *option))
 		{
 			m_hasPriority = true;
-			m_priority = Util::safe_stoi64(option);
+			m_priority = Util::StrToNum<int>(option).value_or(0);;
 		}
 		else
 		{
@@ -916,7 +916,7 @@ const char* FeedFilter::Rule::GetRefValue(FeedItemInfo& feedItemInfo, const char
 		return feedItemInfo.GetEpisode() ? feedItemInfo.GetEpisode() : "";
 	}
 
-	int64 index = Util::safe_stoi64(varName) - 1;
+	int index = Util::StrToNum<int>(varName).value_or(0) - 1;
 	if (index >= 0 && index < (int)m_refValues.size())
 	{
 		return m_refValues[index];

@@ -136,11 +136,11 @@ private:
 		bool m_isValid = false;
 		ERuleCommand m_command = frAccept;
 		CString m_category;
-		int64 m_priority = 0;
-		int64 m_addPriority = 0;
+		int m_priority = 0;
+		int m_addPriority = 0;
 		bool m_pause = false;
-		int64 m_dupeScore;
-		int64 m_addDupeScore = 0;
+		int m_dupeScore;
+		int m_addDupeScore = 0;
 		CString m_dupeKey;
 		CString m_addDupeKey;
 		EDupeMode m_dupeMode = dmScore;

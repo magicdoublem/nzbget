@@ -47,7 +47,7 @@ void TestNzb(std::string testFilename)
 	while (fgets(buffer, sizeof(buffer), infofile) && *buffer == '#') ;
 	BOOST_CHECK(*buffer);
 
-	int64 fileCount = Util::safe_stoi64(buffer);
+	int64 fileCount = Util::StrToNum<int64>(buffer).value_or(0);
 	std::unique_ptr<NzbInfo> nzbInfo = nzbFile.DetachNzbInfo();
 	BOOST_CHECK(nzbInfo->GetFileCount() == fileCount);
 	char lastBuffer[1024];

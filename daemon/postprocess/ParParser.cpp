@@ -111,7 +111,7 @@ bool ParParser::ParseParFilename(const char* parFilename, bool confirmedFilename
 		}
 		if (b)
 		{
-			blockcnt = Util::safe_stoi64(b+1);
+			blockcnt = Util::StrToNum<int64>(b+1).value_or(0);
 			*p = '\0';
 		}
 	}

@@ -535,8 +535,8 @@ public:
 	void SetCurrentSuccessArticles(int currentSuccessArticles) { m_currentSuccessArticles = currentSuccessArticles; }
 	int GetCurrentFailedArticles() { return m_currentFailedArticles; }
 	void SetCurrentFailedArticles(int currentFailedArticles) { m_currentFailedArticles = currentFailedArticles; }
-	int64 GetPriority() { return m_priority; }
-	void SetPriority(int64 priority) { m_priority = priority; }
+	int GetPriority() { return m_priority; }
+	void SetPriority(int priority) { m_priority = priority; }
 	int GetExtraPriority() { return m_extraPriority; }
 	void SetExtraPriority(int extraPriority) { m_extraPriority = extraPriority; }
 	bool HasExtraPriority() { return m_extraPriority > 0; }
@@ -603,8 +603,8 @@ public:
 	int64 CalcCriticalHealth(bool allowEstimation);
 	const char* GetDupeKey() { return m_dupeKey; }
 	void SetDupeKey(const char* dupeKey) { m_dupeKey = dupeKey ? dupeKey : ""; }
-	int64 GetDupeScore() { return m_dupeScore; }
-	void SetDupeScore(int64 dupeScore) { m_dupeScore = dupeScore; }
+	int GetDupeScore() { return m_dupeScore; }
+	void SetDupeScore(int dupeScore) { m_dupeScore = dupeScore; }
 	EDupeMode GetDupeMode() { return m_dupeMode; }
 	void SetDupeMode(EDupeMode dupeMode) { m_dupeMode = dupeMode; }
 	EDupeHint GetDupeHint() { return m_dupeHint; }

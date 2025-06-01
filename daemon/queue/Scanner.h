@@ -41,8 +41,8 @@ public:
 
 	void InitOptions();
 	void ScanNzbDir(bool syncMode);
-	EAddStatus AddExternalFile(const char* nzbName, const char* category, int64 priority,
-		const char* dupeKey, int64 dupeScore, EDupeMode dupeMode,
+	EAddStatus AddExternalFile(const char* nzbName, const char* category, int priority,
+		const char* dupeKey, int dupeScore, EDupeMode dupeMode,
 		NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
 		const char* fileName, const char* buffer, int64 bufSize, int64* nzbId);
 	void InitPPParameters(const char* category, NzbParameterList* parameters, bool reset);
@@ -74,7 +74,7 @@ private:
 	{
 	public:
 		QueueData(const char* filename, const char* nzbName, const char* category,
-			int64 priority, const char* dupeKey, int64 dupeScore, EDupeMode dupeMode,
+			int priority, const char* dupeKey, int dupeScore, EDupeMode dupeMode,
 			NzbParameterList* parameters, bool addTop, bool addPaused, NzbInfo* urlInfo,
 			EAddStatus* addStatus, int64* nzbId);
 		const char* GetFilename() { return m_filename; }
@@ -94,9 +94,9 @@ private:
 		CString m_filename;
 		CString m_nzbName;
 		CString m_category;
-		int64 m_priority;
+		int m_priority;
 		CString m_dupeKey;
-		int64 m_dupeScore;
+		int m_dupeScore;
 		EDupeMode m_dupeMode;
 		NzbParameterList m_parameters;
 		bool m_addTop;

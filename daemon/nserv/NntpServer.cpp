@@ -230,9 +230,9 @@ void NntpProcessor::ServArticle()
 	if (from && off && to && end)
 	{
 		m_filename.Set(m_messageid + 1, (int)(from - m_messageid - 1));
-		m_part = Util::safe_stoi64(from + 1);
-		m_offset = Util::safe_stoi64(off + 1);
-		m_size = Util::safe_stoi64(to + 1);
+		m_part = Util::StrToNum<int64>(from + 1).value_or(0);
+		m_offset = Util::StrToNum<int64>(off + 1).value_or(0);
+		m_size = Util::StrToNum<int64>(to + 1).value_or(0);
 
 		ok = !serv || ServerInList(serv + 1);
 

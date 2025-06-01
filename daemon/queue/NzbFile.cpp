@@ -366,7 +366,7 @@ void NzbFile::Parse_StartElement(const char *name, const char **atts)
 			}
 			if (!strcmp("date", attrname))
 			{
-				m_fileInfo->SetTime(Util::safe_stoi64(attrvalue));
+				m_fileInfo->SetTime(Util::StrToNum<int64>(attrvalue).value_or(0));
 			}
 		}
 	}

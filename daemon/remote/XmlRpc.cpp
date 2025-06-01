@@ -1043,7 +1043,7 @@ bool XmlCommand::NextParamAsInt(int64* value)
 		{
 			return false;
 		}
-		*value = Util::safe_stoi64(param + 1);
+		*value = Util::StrToNum<int64>(param + 1).value_or(0);
 		m_requestPtr = param + 1;
 		while (*m_requestPtr && strchr("-+0123456789&", *m_requestPtr))
 		{
@@ -1059,7 +1059,7 @@ bool XmlCommand::NextParamAsInt(int64* value)
 		{
 			return false;
 		}
-		*value = Util::safe_stoi64(param);
+		*value = Util::StrToNum<int64>(param).value_or(0);
 		m_requestPtr = param + len + 1;
 		return true;
 	}
@@ -1077,7 +1077,7 @@ bool XmlCommand::NextParamAsInt(int64* value)
 		{
 			return false;
 		}
-		*value = Util::safe_stoi64(param);
+		*value = Util::StrToNum<int64>(param).value_or(0);
 		m_requestPtr = param + len + tagLen;
 		return true;
 	}

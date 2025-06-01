@@ -146,13 +146,13 @@ void Decoder::ParseYpart(const char* buffer)
 	if (pb)
 	{
 		pb += 7; //=strlen(" begin=")
-		m_beginPos = static_cast<int64>(Util::safe_stoi64(pb));
+		m_beginPos = Util::StrToNum<int64>(pb).value_or(0);
 	}
 	pb = strstr(buffer, " end=");
 	if (pb)
 	{
 		pb += 5; //=strlen(" end=")
-		m_endPos = static_cast<int64>(Util::safe_stoi64(pb));
+		m_endPos = Util::StrToNum<int64>(pb).value_or(0);
 	}
 }
 
@@ -219,7 +219,7 @@ void Decoder::ProcessYenc(char* buffer, int len)
 		if (pb)
 		{
 			pb += 6; //=strlen(" size=")
-			m_size = (int64)atoll(pb);
+			m_size = Util::StrToNum<int64>(pb).value_or(0);
 		}
 		m_part = strstr(buffer, " part=");
 		if (!m_part)
@@ -253,7 +253,7 @@ void Decoder::ProcessYenc(char* buffer, int len)
 		if (pb)
 		{
 			pb += 6; //=strlen(" size=")
-			m_endSize = (int64)atoll(pb);
+			m_endSize = Util::StrToNum<int64>(pb).value_or(0);;
 		}
 	}
 }

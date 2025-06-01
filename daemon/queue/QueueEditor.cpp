@@ -338,7 +338,7 @@ bool QueueEditor::InternEditList(ItemList* itemList,
 	{
 		itemList = &workItems;
 		int64 offset = args && (action == DownloadQueue::eaFileMoveOffset ||
-			action == DownloadQueue::eaGroupMoveOffset) ? Util::safe_stoi64(args) : 0;
+			action == DownloadQueue::eaGroupMoveOffset) ? Util::StrToNum<int64>(args).value_or(0) : 0;
 		PrepareList(itemList, idList, action, offset);
 	}
 
@@ -899,7 +899,7 @@ void QueueEditor::SetNzbPriority(NzbInfo* nzbInfo, const char* priority)
 {
 	debug("Setting priority %s for %s", priority, nzbInfo->GetName());
 
-	int64 priorityVal = Util::safe_stoi64(priority);
+	int priorityVal = Util::StrToNum<int>(priority).value_or(0);
 	nzbInfo->SetPriority(priorityVal);
 }
 
@@ -1102,7 +1102,7 @@ bool QueueEditor::MoveGroupsTo(ItemList* itemList, IdList* idList, bool before, 
 		return false;
 	}
 
-	int64 targetId = Util::safe_stoi64(args);
+	int64 targetId = Util::StrToNum<int64>(args).value_or(0);
 	int64 offset = 0;
 
 	// check if target is in list of moved items
@@ -1230,7 +1230,7 @@ void QueueEditor::SetNzbDupeParam(NzbInfo* nzbInfo, DownloadQueue::EEditAction a
 			break;
 
 		case DownloadQueue::eaGroupSetDupeScore:
-			nzbInfo->SetDupeScore(Util::safe_stoi64(text));
+			nzbInfo->SetDupeScore(Util::StrToNum<int>(text).value_or(0));
 			break;
 
 		case DownloadQueue::eaGroupSetDupeMode:

@@ -158,7 +158,7 @@ void CommandLineParser::InitCommandLine(int argc, const char* const_argv[])
 							ReportError("Could not parse value of option 'A'");
 							return;
 						}
-						m_addPriority = Util::safe_stoi64(argv[optind-1]);
+						m_addPriority = atoi(argv[optind-1]);
 					}
 					else if (optarg && !strcasecmp(optarg, "C"))
 					{
@@ -198,7 +198,7 @@ void CommandLineParser::InitCommandLine(int argc, const char* const_argv[])
 							ReportError("Could not parse value of option 'A'");
 							return;
 						}
-						m_addDupeScore = Util::safe_stoi64(argv[optind-1]);
+						m_addDupeScore = atoi(argv[optind-1]);
 					}
 					else if (optarg && !strcasecmp(optarg, "DM"))
 					{
@@ -367,7 +367,7 @@ void CommandLineParser::InitCommandLine(int argc, const char* const_argv[])
 				break;
 			case 'G':
 				m_clientOperation = opClientRequestLog;
-				m_logLines = Util::safe_stoi64(optarg);
+				m_logLines = Util::StrToNum<int>(optarg).value_or(0);
 				if (m_logLines == 0)
 				{
 					ReportError("Could not parse value of option 'G'");
@@ -617,7 +617,7 @@ void CommandLineParser::InitCommandLine(int argc, const char* const_argv[])
 						}
 						m_editQueueText = std::move(argv[optind-1]);
 
-						if (Util::safe_stoi64(m_editQueueText) == 0 && strcmp("0", m_editQueueText))
+						if (atoi(m_editQueueText) == 0 && strcmp("0", m_editQueueText))
 						{
 							ReportError("Could not parse value of option 'E'");
 							return;
@@ -625,7 +625,7 @@ void CommandLineParser::InitCommandLine(int argc, const char* const_argv[])
 					}
 					else
 					{
-						m_editQueueOffset = Util::safe_stoi64(optarg);
+						m_editQueueOffset = Util::StrToNum<int64>(optarg).value_or(0);
 						if (m_editQueueOffset == 0)
 						{
 							ReportError("Could not parse value of option 'E'");
@@ -895,8 +895,8 @@ void CommandLineParser::ParseFileIdList(int argc, const char* argv[], int optind
 			{
 				BString<100> buf;
 				buf.Set(optarg, (int64)(p - optarg));
-				editQueueIdFrom = Util::safe_stoi64(buf);
-				editQueueIdTo = Util::safe_stoi64(p + 1);
+				editQueueIdFrom = atoll(buf);
+				editQueueIdTo = atoll(p + 1);
 				if (editQueueIdFrom <= 0 || editQueueIdTo <= 0)
 				{
 					ReportError("invalid list of file IDs");
@@ -905,7 +905,7 @@ void CommandLineParser::ParseFileIdList(int argc, const char* argv[], int optind
 			}
 			else
 			{
-				editQueueIdFrom = Util::safe_stoi64(optarg);
+				editQueueIdFrom = Util::StrToNum<int64>(optarg).value_or(0);
 				if (editQueueIdFrom <= 0)
 				{
 					ReportError("invalid list of file IDs");
