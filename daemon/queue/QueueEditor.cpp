@@ -899,7 +899,7 @@ void QueueEditor::SetNzbPriority(NzbInfo* nzbInfo, const char* priority)
 {
 	debug("Setting priority %s for %s", priority, nzbInfo->GetName());
 
-	int priorityVal = Util::StrToNum<int>(priority).value_or(0);
+	int64 priorityVal = Util::StrToNum<int64>(priority).value_or(0);
 	nzbInfo->SetPriority(priorityVal);
 }
 
@@ -1230,7 +1230,7 @@ void QueueEditor::SetNzbDupeParam(NzbInfo* nzbInfo, DownloadQueue::EEditAction a
 			break;
 
 		case DownloadQueue::eaGroupSetDupeScore:
-			nzbInfo->SetDupeScore(Util::StrToNum<int>(text).value_or(0));
+			nzbInfo->SetDupeScore(Util::StrToNum<int64>(text).value_or(0));
 			break;
 
 		case DownloadQueue::eaGroupSetDupeMode:

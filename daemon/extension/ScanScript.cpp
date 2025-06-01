@@ -44,8 +44,8 @@ bool ScanScriptController::HasScripts()
 
 void ScanScriptController::ExecuteScripts(const char* nzbFilename,
 	NzbInfo* nzbInfo, const char* directory, CString* nzbName, CString* category,
-	int* priority, NzbParameterList* parameters, bool* addTop, bool* addPaused,
-	CString* dupeKey, int* dupeScore, EDupeMode* dupeMode)
+	int64* priority, NzbParameterList* parameters, bool* addTop, bool* addPaused,
+	CString* dupeKey, int64* dupeScore, EDupeMode* dupeMode)
 {
 	if (nzbInfo && nzbInfo->GetSkipScriptProcessing())
 	{
@@ -165,7 +165,7 @@ void ScanScriptController::AddMessage(Message::EKind kind, const char* text)
 		}
 		else if (!strncmp(msgText + 6, "PRIORITY=", 9))
 		{
-			*m_priority = Util::StrToNum<int>(msgText + 6 +9).value_or(0);
+			*m_priority = Util::StrToNum<int64>(msgText + 6 +9).value_or(0);
 		}
 		else if (!strncmp(msgText + 6, "TOP=", 4))
 		{
@@ -181,7 +181,7 @@ void ScanScriptController::AddMessage(Message::EKind kind, const char* text)
 		}
 		else if (!strncmp(msgText + 6, "DUPESCORE=", 10))
 		{
-			*m_dupeScore = Util::StrToNum<int>(msgText + 6 + 10).value_or(0);
+			*m_dupeScore = Util::StrToNum<int64>(msgText + 6 + 10).value_or(0);
 		}
 		else if (!strncmp(msgText + 6, "DUPEMODE=", 9))
 		{

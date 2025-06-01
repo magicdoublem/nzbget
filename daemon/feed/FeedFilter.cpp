@@ -664,7 +664,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasPriority = true;
-			m_priority = Util::StrToNum<int>(value).value_or(0);
+			m_priority = Util::StrToNum<int64>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "priority+") || !strcasecmp(option, "pr+") || !strcasecmp(option, "r+"))
 		{
@@ -674,7 +674,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasAddPriority = true;
-			m_addPriority = Util::StrToNum<int>(value).value_or(0);
+			m_addPriority = Util::StrToNum<int64>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "dupescore") || !strcasecmp(option, "ds") || !strcasecmp(option, "s"))
 		{
@@ -684,7 +684,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasDupeScore = true;
-			m_dupeScore = Util::StrToNum<int>(value).value_or(0);
+			m_dupeScore = Util::StrToNum<int64>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "dupescore+") || !strcasecmp(option, "ds+") || !strcasecmp(option, "s+"))
 		{
@@ -694,7 +694,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 				return nullptr;
 			}
 			m_hasAddDupeScore = true;
-			m_addDupeScore = Util::StrToNum<int>(value).value_or(0);
+			m_addDupeScore = Util::StrToNum<int64>(value).value_or(0);
 		}
 		else if (!strcasecmp(option, "dupekey") || !strcasecmp(option, "dk") || !strcasecmp(option, "k"))
 		{
@@ -759,7 +759,7 @@ char* FeedFilter::Rule::CompileOptions(char* rule)
 		else if (strchr("0123456789-+", *option))
 		{
 			m_hasPriority = true;
-			m_priority = Util::StrToNum<int>(option).value_or(0);;
+			m_priority = Util::StrToNum<int64>(option).value_or(0);;
 		}
 		else
 		{

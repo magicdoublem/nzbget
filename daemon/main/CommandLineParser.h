@@ -124,14 +124,14 @@ private:
 	CString m_editQueueText;
 	CString m_argFilename;
 	CString m_addCategory;
-	int m_addPriority = 0;
+	int64 m_addPriority = 0;
 	bool m_addPaused = false;
 	CString m_addNzbFilename;
 	CString m_lastArg;
 	bool m_printOptions = false;
 	bool m_addTop = false;
 	CString m_addDupeKey;
-	int m_addDupeScore = 0;
+	int64 m_addDupeScore = 0;
 	int m_addDupeMode = 0;
 	int m_setRate = 0;
 	int m_logLines = 0;
