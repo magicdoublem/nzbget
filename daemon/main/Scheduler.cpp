@@ -288,7 +288,7 @@ void Scheduler::EditServer(bool active, const char* serverList)
 	Tokenizer tok(serverList, ",;");
 	while (const char* serverRef = tok.Next())
 	{
-		int id = atoi(serverRef);
+		int id = Util::StrToNum<int>(serverRef).value_or(0);
 		for (NewsServer* server : g_ServerPool->GetServers())
 		{
 			if ((id > 0 && server->GetId() == id) ||
@@ -317,7 +317,7 @@ void Scheduler::FetchFeed(const char* feedList)
 	Tokenizer tok(feedList, ",;");
 	while (const char* feedRef = tok.Next())
 	{
-		int id = atoi(feedRef);
+		int id = Util::StrToNum<int>(feedRef).value_or(0);
 		for (FeedInfo* feed : g_FeedCoordinator->GetFeeds())
 		{
 			if (feed->GetId() == id ||

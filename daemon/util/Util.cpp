@@ -1067,7 +1067,7 @@ void WebUtil::XmlDecode(char* raw)
 					}
 					else if (*p == '#')
 					{
-						int code = atoi((p++)+1);
+						int code = Util::StrToNum<int>((p++)+1).value_or(0);
 						while (strchr("0123456789;", *p)) p++;
 						*output++ = (char)code;
 					}
@@ -1662,7 +1662,7 @@ void URL::ParseUrl()
 	if (colon && colon < hostEnd)
 	{
 		hostEnd = colon - 1;
-		m_port = atoi(colon + 1);
+		m_port = Util::StrToNum<int>(colon + 1).value_or(0);
 	}
 
 	m_host.Set(hostStart, (int)(hostEnd - hostStart + 1));

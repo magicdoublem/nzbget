@@ -258,7 +258,7 @@ bool NntpProcessor::ServerInList(const char* servList)
 	Tokenizer tok(servList, ",");
 	while (const char* servid = tok.Next())
 	{
-		if (atoi(servid) == m_serverId)
+		if (Util::StrToNum<int>(servid).value_or(0) == m_serverId)
 		{
 			return true;
 		}

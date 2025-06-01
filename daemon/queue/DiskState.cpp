@@ -153,7 +153,7 @@ int StateFile::ParseFormatVersion(const char* formatSignature)
 		return 0;
 	}
 
-	return atoi(formatSignature + strlen(FORMATVERSION_SIGNATURE));
+	return Util::StrToNum<int>(formatSignature + strlen(FORMATVERSION_SIGNATURE)).value_or(0);
 }
 
 bool StateFile::FileExists()
@@ -954,7 +954,7 @@ bool DiskState::LoadNzbInfo(NzbInfo* nzbInfo, Servers* servers, StateDiskFile& i
 		if (scriptName)
 		{
 			scriptName++;
-			int status = atoi(buf);
+			int status = Util::StrToNum<int>(buf).value_or(0);
 			if (status > 1 && formatVersion < 25) status--;
 			nzbInfo->GetScriptStatuses()->emplace_back(scriptName, (ScriptStatus::EStatus)status);
 		}
@@ -2566,7 +2566,7 @@ void DiskState::LoadNzbMessages(int64 nzbId, MessageList* messages)
 		// time (skip formatted time first)
 		char* p = strchr(line, '\t');
 		if (!p) goto exit;
-		int time = atoi(p + 1);
+		int time = Util::StrToNum<int>(p + 1).value_or(0);
 
 		// kind
 		p = strchr(p + 1, '\t');

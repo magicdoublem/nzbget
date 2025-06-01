@@ -133,7 +133,7 @@ void WebProcessor::ParseHeaders()
 
 		if (!strncasecmp(p, "Content-Length: ", 16))
 		{
-			m_contentLen = atoi(p + 16);
+			m_contentLen = Util::StrToNum<int>(p + 16).value_or(0);
 		}
 		else if (!strncasecmp(p, "Authorization: Basic ", 21) && Util::EmptyStr(m_authInfo))
 		{

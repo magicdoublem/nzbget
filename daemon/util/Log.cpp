@@ -336,9 +336,9 @@ void Log::RotateLog()
 
 			struct tm tm;
 			memset(&tm, 0, sizeof(tm));
-			tm.tm_year = atoi(filename + mask.GetMatchStart(0)) - 1900;
-			tm.tm_mon = atoi(filename + mask.GetMatchStart(1)) - 1;
-			tm.tm_mday = atoi(filename + mask.GetMatchStart(2));
+			tm.tm_year = Util::StrToNum<int>(filename + mask.GetMatchStart(0)).value_or(0) - 1900;
+			tm.tm_mon = Util::StrToNum<int>(filename + mask.GetMatchStart(1)).value_or(0) - 1;
+			tm.tm_mday = Util::StrToNum<int>(filename + mask.GetMatchStart(2)).value_or(0);
 			time_t fileTime = Util::Timegm(&tm);
 			int fileDay = (int)fileTime / 86400;
 
