@@ -100,8 +100,8 @@ struct SNzbDownloadRequest
 	char m_category[NZBREQUESTFILENAMESIZE]; // Category, can be empty
 	int32 m_addFirst; // 1 - add file to the top of download queue
 	int32 m_addPaused; // 1 - pause added files
-	int32 m_priority; // Priority for files (0 - default)
-	int32 m_dupeScore; // Duplicate score
+	int64 m_priority; // Priority for files (0 - default)
+	int64 m_dupeScore; // Duplicate score
 	int32 m_dupeMode; // Duplicate mode (EDupeMode)
 	char m_dupeKey[NZBREQUESTFILENAMESIZE]; // Duplicate key
 	int32 m_trailingDataLength; // Length of nzb-file in bytes
@@ -171,7 +171,7 @@ struct SNzbListResponseNzbEntry
 	int32 m_pausedSizeHi; // Size of paused files in bytes, High 32-bits of 64-bit value
 	int32 m_pausedCount; // Number of paused files
 	int32 m_remainingParCount; // Number of remaining par-files
-	int32 m_priority; // Download priority
+	int64 m_priority; // Download priority
 	int32 m_match; // 1 - group matches the pattern (only when Request has eRemoteMatchModeRegEx)
 	int32 m_filenameLen; // Length of Filename-string (m_szFilename), following to this record
 	int32 m_nameLen; // Length of Name-string (m_szName), following to this record

@@ -47,7 +47,7 @@ public:
 	uint32 GetFilterHash() { return m_filterHash; }
 	bool GetPauseNzb() { return m_pauseNzb; }
 	const char* GetCategory() { return m_category; }
-	int GetPriority() { return m_priority; }
+	int64 GetPriority() { return m_priority; }
 	const char* GetExtensions() { return m_extensions; }
 	time_t GetLastUpdate() { return m_lastUpdate; }
 	void SetLastUpdate(time_t lastUpdate) { m_lastUpdate = lastUpdate; }
@@ -79,7 +79,7 @@ private:
 	bool m_pauseNzb;
 	CString m_category;
 	CString m_extensions;
-	int m_priority;
+	int64 m_priority;
 	time_t m_lastUpdate = 0;
 	time_t m_nextUpdate = 0;
 	int m_lastInterval = 0;
@@ -170,8 +170,8 @@ public:
 	void SetAddCategory(const char* addCategory) { m_addCategory = addCategory ? addCategory : ""; }
 	bool GetPauseNzb() { return m_pauseNzb; }
 	void SetPauseNzb(bool pauseNzb) { m_pauseNzb = pauseNzb; }
-	int GetPriority() { return m_priority; }
-	void SetPriority(int priority) { m_priority = priority; }
+	int64 GetPriority() { return m_priority; }
+	void SetPriority(int64 priority) { m_priority = priority; }
 	time_t GetTime() { return m_time; }
 	void SetTime(time_t time) { m_time = time; }
 	EStatus GetStatus() { return m_status; }
@@ -210,7 +210,7 @@ private:
 	bool m_seasonEpisodeParsed = false;
 	CString m_addCategory = "";
 	bool m_pauseNzb = false;
-	int m_priority = 0;
+	int64 m_priority = 0;
 	EStatus m_status = isUnknown;
 	EMatchStatus m_matchStatus = msIgnored;
 	int m_matchRule = 0;

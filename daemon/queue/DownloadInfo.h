@@ -704,8 +704,8 @@ private:
 	int m_currentFailedArticles = 0;
 	time_t m_minTime = 0;
 	time_t m_maxTime = 0;
-	int m_priority = 0;
-	int m_extraPriority = 0;
+	int64 m_priority = 0;
+	int64 m_extraPriority = 0;
 	CompletedFileList m_completedFiles;
 	EDirectRenameStatus m_directRenameStatus = tsNone;
 	EPostRenameStatus m_parRenameStatus = rsNone;
