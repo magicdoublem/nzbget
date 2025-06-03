@@ -55,7 +55,7 @@ private:
 	CString m_destDir;
 	CString m_queuedFilename;
 	int64 m_id;
-	int m_priority;
+	int64 m_priority;
 	CString m_dupeKey;
 	EDupeMode m_dupeMode;
 	int64 m_dupeScore;
