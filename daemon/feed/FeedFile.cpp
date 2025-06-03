@@ -205,6 +205,11 @@ void FeedFile::Parse_StartElement(const char* name, const char **atts)
 				int64 size = ExtractSizeFromDescription(m_feedItemInfo->GetDescription());
 				m_feedItemInfo->SetSize(size);
 			}
+			if (m_feedItemInfo->GetSize() == 0)
+			{
+				int64 size = ExtractSizeFromDescription(m_feedItemInfo->GetDescription());
+				m_feedItemInfo->SetSize(size);
+			}
 		}
 	}
 	else if (m_feedItemInfo && 
